@@ -1,0 +1,30 @@
+.the-supplier {
+    padding: 24px;
+
+	table.customTable {
+		width: 100%;
+		background-color: #ffffff;
+		border-collapse: collapse;
+		border-width: 2px;
+		// border-color: #7EA8F8;
+		border-style: solid;
+		color: #000000;
+	}
+
+	table.customTable td,
+	table.customTable {
+		border-width: 2px;
+		// border-color: #7EA8F8;
+		border-style: solid;
+		padding: 5px;
+	}
+
+    .supplier-block {
+        display: flex;
+        align-items: center;
+    }
+
+	.bold {
+		font-weight: bold;
+	}
+}

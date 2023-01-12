@@ -1,0 +1,15 @@
+.a-home {
+    .nav {
+        display: flex;
+        height: 55px;
+        background: grey;
+        margin-left: 15rem;
+    }
+    .aside {
+        position: fixed;
+        top: 0;
+        width: 15rem;
+        background: salmon;
+        height: 100vh;
+    }
+}
