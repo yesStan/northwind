@@ -11,11 +11,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <td
-                        class="product-block"
-                        v-for="product in products"
-                    >
-
+                    <td class="product-block">
                         <div class="product-info">
                             <div class="title">
                                 <h2 class="bold">Product Name</h2>
@@ -37,10 +33,10 @@
                         <div class="product-info">
                             <div class="title">
                                 <h2 class="bold">Units In Stock</h2>
-                                <p>{{ product.unitPrice }}</p>
+                                <p>{{ product.unitsInStock }}</p>
                             </div>
                             <div class="title">
-                                <h2 class="bold">Units In Order</h2>
+                                <h2 class="bold">Units On Order</h2>
                                 <p>{{ product.unitsOnOrder }}</p>
                             </div>
                             <div class="title">
@@ -60,14 +56,11 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { getProductIdData, TProductID, TProductIdList } from '../../../api/interfaces';
+import { getProductIdData, TProductID, IProduct } from '../../../api/interfaces';
 
 export default defineComponent({
     name: 'TheProduct',
     props: {
-        /**
-         * AQA attribute
-         */
         atAttribute: {
             type: String,
             default: ''
@@ -75,11 +68,22 @@ export default defineComponent({
     },
     data() {
         return {
-            products: [] as TProductIdList,
+            product: {
+                productID: 0,
+                productName: "",
+                supplierID: 0,
+                categoryID: 0,
+                quantityPerUnit: "",
+                unitPrice: "",
+                unitsInStock: "",
+                unitsOnOrder: "",
+                reorderLevel: "",
+                discontinued: false,
+            } as IProduct,
             productID: [] as TProductID
         }
     },
-    mounted() {
+    created() {
         this.getProduct();
     },
     methods: {
@@ -90,7 +94,8 @@ export default defineComponent({
                 const response = await getProductIdData(this.productID);
                 console.log(response.data);
 
-                this.products = response.data[0]
+                const [{ products, suppliers }] = response.data;
+                this.product = products;
             } catch (error) {
                 console.log(error);
             }
@@ -98,6 +103,18 @@ export default defineComponent({
     }
 });
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

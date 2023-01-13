@@ -85,14 +85,14 @@ function getSuppliersIdData(params: TSupplierID): TGetSuppliersIdListResponse {
 // ****************************************************************************************************
 // endpoint: getProductData
 // ****************************************************************************************************
-export interface IProduct {
+export interface IProducts {
     categoryID: number
     discontinued: boolean
     productID: number
     productName: string
     quantityPerUnit: string
     reorderLevel: string
-    supplierID: string
+    supplierID: number
     unitPrice: string
     unitsInStock: string
     unitsOnOrder: string
@@ -104,7 +104,7 @@ export interface IQuery {
 }
 
 export type TQueryProducts = Array<IQuery>
-export type TProductsList = Array<IProduct>
+export type TProductsList = Array<IProducts>
 
 export type TGetProductsListResponse = Promise<IGetProductsResponse>
 
@@ -124,13 +124,27 @@ export interface IProduct {
     productID: number
     productName: string
     categoryID: number
-    addrequantityPerUnitss: string
+    quantityPerUnit: string
     unitPrice: string
     unitsInStock: string
     unitsOnOrder: string
     reorderLevel: string
     discontinued: boolean
-    // supplierID: number | string
+    supplierID: number 
+}
+export interface ISupplier {
+    supplierID: number
+    companyName: string
+    contactName: string
+    contactTitle: string
+    address: string
+    city: string
+    region: string
+    postalCode: string
+    country: string
+    phone: string
+    fax: string
+    HomePage: string
 }
 export interface IQuery {
     queryInfo: string
@@ -138,11 +152,15 @@ export interface IQuery {
     queryExecutionTime: string
 }
 export interface IProductId {
-    productID: number | string
+    productID: number
+}
+export interface IProductData {
+    products: IProduct
+    suppliers: ISupplier
 }
 
 export type TQueryProductIdResponse = Array<IQuery>
-export type TProductIdList = Array<IProduct>
+export type TProductIdList = Array<IProductData>
 export type TProductID = Array<IProductId>
 
 
@@ -151,8 +169,6 @@ export type TGetProductIdListResponse = Promise<IGetProductIdResponse>
 export interface IGetProductIdResponse {
     queryInfo: TQueryProductIdResponse
     data: TProductIdList 
-        // suppliers: TSuppliersIdList
-
 }
 
 function getProductIdData(params: TProductID): TGetProductIdListResponse {

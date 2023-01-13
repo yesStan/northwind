@@ -35,7 +35,6 @@
                         <td>{{ item.quantityPerUnit }}</td>
                         <td>{{ item.unitPrice }}</td>
                         <td>{{ item.unitsInStock }}</td>
-                        <td>{{ item.unitsOnOrder }}</td>
                     </tr>
                 </tbody>
             </table>
