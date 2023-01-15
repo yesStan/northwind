@@ -19,7 +19,12 @@
                             </div>
                             <div class="title">
                                 <h2 class="bold">Supplier</h2>
-                                <p>{{ product.supplierID }}</p>
+                                <router-link
+                                    :to="{ name: ROUTE_NAMES.SUPPLIER_PROFILE, params: { id: product.supplierID } }"
+                                >
+                                    {{ supplier.companyName }}
+                                </router-link>
+                                <p>{{}}</p>
                             </div>
                             <div class="title">
                                 <h2 class="bold">Quantity Per Unit</h2>
@@ -56,7 +61,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { getProductIdData, TProductID, IProduct } from '../../../api/interfaces';
+import { ROUTE_NAMES } from '../../../constants/route-names-constants';
+import { getProductData, IProduct } from '../../../api/interfaces';
 
 export default defineComponent({
     name: 'TheProduct',
@@ -79,22 +85,30 @@ export default defineComponent({
                 unitsOnOrder: "",
                 reorderLevel: "",
                 discontinued: false,
+
             } as IProduct,
-            productID: [] as TProductID
+            supplier: {
+                companyName: ''
+            },
+            ROUTE_NAMES
         }
     },
     created() {
         this.getProduct();
     },
+    computed: {
+        productId() {
+            return Number(this.$route.params.id);
+        }
+    },
     methods: {
         async getProduct() {
-            this.productID = this.$route.params.id
-
             try {
-                const response = await getProductIdData(this.productID);
+                const response = await getProductData(this.productId);
                 console.log(response.data);
 
                 const [{ products, suppliers }] = response.data;
+                this.supplier = suppliers;
                 this.product = products;
             } catch (error) {
                 console.log(error);
@@ -103,6 +117,10 @@ export default defineComponent({
     }
 });
 </script>
+
+
+
+
 
 
 

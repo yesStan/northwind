@@ -52,8 +52,13 @@ export default defineComponent({
             customers: [] as TCustomersList
         }
     },
-    mounted() {
+    created() {
         this.getCustomers()
+    },
+    computed: {
+        customerId() {
+            return Number(this.$route.params.id)
+        }
     },
     methods: {
         async getCustomers() {

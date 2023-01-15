@@ -3,7 +3,10 @@
         :at-the-employees="atAttribute"
         class="the-employees"
     >
-        <div class="table-wrapper" v-if="employees">
+        <div
+            class="table-wrapper"
+            v-if="employees.length"
+        >
             <table class="customTable">
                 <thead>
                     <tr>
@@ -20,8 +23,16 @@
                         <td>Country</td>
                     </tr>
                     <tr v-for="item in employees">
-                        <td>{{  }}</td>
-                        <td>{{ item.firstName }} {{ item.lastName }}</td>
+                        <td>{{}}</td>
+                        <td>
+                            <router-link
+                                :to="{ name: ROUTE_NAMES.EMPLOYEE_PROFILE, params: { id: item.employeeID } }"
+                                props:
+                                true
+                            >
+                                {{ item.firstName }} {{ item.lastName }}
+                            </router-link>
+                        </td>
                         <td>{{ item.title }}</td>
                         <td>{{ item.city }}</td>
                         <td>{{ item.homePhone }}</td>
@@ -36,7 +47,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { getEmployeesData } from '../../../api/interfaces'
+import { getEmployeesData, TEmployeesList } from '../../../api/interfaces'
+import { ROUTE_NAMES } from '../../../constants/route-names-constants';
 
 export default defineComponent({
     name: 'TheEmployees',
@@ -48,7 +60,8 @@ export default defineComponent({
     },
     data() {
         return {
-            employees: {}
+            employees: [] as TEmployeesList,
+            ROUTE_NAMES
         }
     },
     mounted() {
@@ -56,10 +69,9 @@ export default defineComponent({
     },
     methods: {
         async getEmployees() {
-            this.employees = false
             try {
                 const response = await getEmployeesData();
-                console.log(response);
+                
                 this.employees = response.data
             } catch (error) {
                 console.log(error);
@@ -68,6 +80,12 @@ export default defineComponent({
     }
 });
 </script>
+
+
+
+
+
+
 
 
 

@@ -6,7 +6,10 @@ export const ROUTE_NAMES = {
     ORDERS: 'orders',
     EMPLOYEES: 'employees',
     CUSTOMERS: 'customers',
+    CUSTOMER_PROFILE: 'customer',
     SEARCH: 'search',
     SUPPLIER_PROFILE: 'supplier',
-    PRODUCT_PROFILE: 'product'
+    PRODUCT_PROFILE: 'product',
+    ORDER_PROFILE: 'order',
+    EMPLOYEE_PROFILE: 'employee',
 };
