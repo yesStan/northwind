@@ -64,21 +64,8 @@ export default defineComponent({
         }
     },
     computed: {
-        ...mapGetters(['allCustomers']),
-        // customerId() {
-        //     return Number(this.$route.params.id)
-        // }
+        ...mapGetters(['allCustomers']), 
     },
-    // methods: {
-    //     async getCustomers() {
-    //         try {
-    //             const response = await getCustomersData();
-    //             this.customers = response.data
-    //         } catch (error) {
-    //             console.log(error);
-    //         }
-    //     }
-    // }
 });
 </script>
 

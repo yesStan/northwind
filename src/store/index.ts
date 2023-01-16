@@ -1,8 +1,5 @@
 import { createStore } from 'vuex';
-import { getCustomersData, getProductsData } from '../api/interfaces';
-// import { getAlbumsData, getClientsData } from '../api/album';
-
-
+import { getCustomersData, getOrdersData, getProductsData } from '../api/interfaces';
 
 export const store = createStore({
     // modules: {
@@ -11,11 +8,17 @@ export const store = createStore({
         return {
             products: [],
             customers: [],
+            orders: [],
+            // filteredValues: {
+            //     products: [],
+            //     customers: []
+            // },
         };
     },
     getters: {
         allProducts: state => state.products,
         allCustomers: state => state.customers,
+        allOrders: state => state.orders,
 
     },
     actions: {
@@ -23,7 +26,6 @@ export const store = createStore({
             try {
                 const response = await getProductsData();
                 commit('setProducts', response.data)
-                
             } catch (error) {
                 console.log(error);
             }
@@ -36,7 +38,27 @@ export const store = createStore({
             } catch (error) {
                 console.log(error);
             }
-        } 
+        } ,
+        async fetchOrders({commit}) {
+            try {
+                const response = await getOrdersData();
+                commit('setOrders', response.data)
+                
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        // async filteredProducts({commit}) {
+        //     try {
+        //         const response = await getOrdersData();
+        //         commit('filteredValues', )
+
+                
+        //     } catch (error) {
+        //         console.log(error);
+        //     }
+        // } 
     },
     mutations: {
         setProducts(state, payload) {
@@ -44,6 +66,9 @@ export const store = createStore({
         },
         setCustomers(state, payload) {
             state.customers = payload
+        },
+        setOrders(state, payload) {
+            state.orders = payload
         }
     }
 });

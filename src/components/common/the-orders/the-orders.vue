@@ -5,7 +5,7 @@
     >
         <div
             class="table-wrapper"
-            v-if="orders.length"
+            v-if="allOrders.length"
         >
             <table class="customTable">
                 <thead>
@@ -24,7 +24,7 @@
                         <td>City</td>
                         <td>Country</td>
                     </tr>
-                    <tr v-for="item in orders">
+                    <tr v-for="item in allOrders">
                         <td>
                             <router-link
                                 :to="{ name: ROUTE_NAMES.ORDER_PROFILE, params: { id: item.OrderID } }"
@@ -51,6 +51,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { RouterLink } from 'vue-router';
+import { mapGetters } from 'vuex';
 import { getOrdersData, TOrderList } from '../../../api/interfaces'
 import { ROUTE_NAMES } from '../../../constants/route-names-constants';
 
@@ -68,21 +70,21 @@ export default defineComponent({
             ROUTE_NAMES
         }
     },
-    mounted() {
-        this.getOrders()
+    computed: {
+        ...mapGetters(['allOrders']), 
     },
-    methods: {
-        async getOrders() {
-            try {
-                const response = await getOrdersData();
-                console.log(response);
+    // methods: {
+    //     async getOrders() {
+    //         try {
+    //             const response = await getOrdersData();
+    //             console.log(response);
 
-                this.orders = response.data
-            } catch (error) {
-                console.log(error);
-            }
-        }
-    }
+    //             this.orders = response.data
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     }
+    // }
 });
 </script>
 

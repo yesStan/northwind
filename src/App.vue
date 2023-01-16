@@ -27,6 +27,7 @@ export default defineComponent({
     async mounted() {
         this.$store.dispatch('fetchProducts');
         this.$store.dispatch('fetchCustomers');
+        this.$store.dispatch('fetchOrders');
     },
 })
 
