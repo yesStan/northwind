@@ -18,7 +18,7 @@
                         <div class="supplier-info">
                             <div class="title">
                                 <h2 class="bold">Company Name</h2>
-                                <p>{{ supplier.contactName }}</p>
+                                <p>{{ supplier.companyName }}</p>
                             </div>
                             <div class="title">
                                 <h2 class="bold">Contact Name</h2>
@@ -68,7 +68,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { getSuppliersIdData, TSupplierID, TSuppliersIdList,  } from '../../../api/interfaces';
+import { getSuppliersIdData, TSuppliersIdList,  } from '../../../api/interfaces';
 
 export default defineComponent({
     name: 'TheSupplier',
@@ -84,8 +84,12 @@ export default defineComponent({
     },
     data() {
         return {
-            suppliers: [] as TSuppliersIdList,
-            supplierID: []  as TSupplierID
+            suppliers: [] as TSuppliersIdList
+        }
+    },
+    computed: {
+        supplierId() {
+            return Number(this.$route.params.id)
         }
     },
     mounted() {
@@ -93,10 +97,8 @@ export default defineComponent({
     },
     methods: {
         async getSuppliers() {
-            this.supplierID = this.$route.params.id
-
             try {
-                const response = await getSuppliersIdData(this.supplierID);
+                const response = await getSuppliersIdData(this.supplierId);
                 console.log(response);
 
                 this.suppliers = response.data

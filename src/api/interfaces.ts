@@ -61,14 +61,9 @@ export interface IQuery {
     queryTS: string
     queryExecutionTime: string
 }
-export interface ISupplierId {
-    supplierID: number | string
-}
 
 export type TQueryIdResponse = Array<IQuery>
 export type TSuppliersIdList = Array<ISupplier>
-export type TSupplierID = Array<ISupplierId>
-
 
 export type TGetSuppliersIdListResponse = Promise<IGetSuppliersIdResponse>
 
@@ -77,8 +72,8 @@ export interface IGetSuppliersIdResponse {
     data: TSuppliersIdList
 }
 
-function getSuppliersIdData(params: TSupplierID): TGetSuppliersIdListResponse {
-    return api.get(`/suppliers/${params} `);
+function getSuppliersIdData(id: number): TGetSuppliersIdListResponse {
+    return api.get(`/suppliers/${id} `);
 }
 
 

@@ -5,7 +5,7 @@
     >
         <div
             class="table-wrapper"
-            v-if="customers.length"
+            v-if="allCustomers.length"
         >
             <table class="customTable">
                 <thead>
@@ -21,8 +21,16 @@
                         <td>City</td>
                         <td>Country</td>
                     </tr>
-                    <tr v-for="item in customers">
-                        <td>{{ item.companyName }}</td>
+                    <tr v-for="item in allCustomers">
+                        <td>
+                            <router-link
+                                :to="{ name: ROUTE_NAMES.CUSTOMER_PROFILE, params: { id: item.customerID }}"
+                                props:
+                                true
+                            >
+                            {{ item.companyName }}
+                            </router-link>
+                        </td>
                         <td>{{ item.contactName }}</td>
                         <td>{{ item.contactTitle }}</td>
                         <td>{{ item.city }}</td>
@@ -37,7 +45,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { getCustomersData, TCustomersList } from '../../../api/interfaces';
+import { mapGetters } from 'vuex';
+import { TCustomersList } from '../../../api/interfaces';
+import { ROUTE_NAMES } from '../../../constants/route-names-constants';
 
 export default defineComponent({
     name: 'TheCustomers',
@@ -49,27 +59,26 @@ export default defineComponent({
     },
     data() {
         return {
-            customers: [] as TCustomersList
+            customers: [] as TCustomersList,
+            ROUTE_NAMES
         }
-    },
-    created() {
-        this.getCustomers()
     },
     computed: {
-        customerId() {
-            return Number(this.$route.params.id)
-        }
+        ...mapGetters(['allCustomers']),
+        // customerId() {
+        //     return Number(this.$route.params.id)
+        // }
     },
-    methods: {
-        async getCustomers() {
-            try {
-                const response = await getCustomersData();
-                this.customers = response.data
-            } catch (error) {
-                console.log(error);
-            }
-        }
-    }
+    // methods: {
+    //     async getCustomers() {
+    //         try {
+    //             const response = await getCustomersData();
+    //             this.customers = response.data
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     }
+    // }
 });
 </script>
 

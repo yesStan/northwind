@@ -90,7 +90,7 @@ const router = createRouter({
                 },
                 // customer id
                 {
-                    path: '/customers/:id',
+                    path: '/customer/:id',
                     name: ROUTE_NAMES.CUSTOMER_PROFILE,
                     component: TheCustomer
                 },

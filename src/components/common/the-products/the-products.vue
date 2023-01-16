@@ -6,8 +6,8 @@
 
         <div
             class="table-wrapper"
-            v-if="products.length"
         >
+
             <table class="customTable">
                 <thead>
                     <tr>
@@ -22,11 +22,12 @@
                         <td>Stock</td>
                         <td>Orders</td>
                     </tr>
-                    <tr v-for="item in products">
+                    <tr v-for="item in allProducts">
                         <td>
                             <router-link
-                                :to="{ name: ROUTE_NAMES.PRODUCT_PROFILE, params: { id: item.categoryID }}"
-                                props: true
+                                :to="{ name: ROUTE_NAMES.PRODUCT_PROFILE, params: { id: item.categoryID } }"
+                                props:
+                                true
                             >
                                 {{ item.productName }}
                             </router-link>
@@ -39,13 +40,14 @@
                 </tbody>
             </table>
         </div>
-        <div v-else>loading...</div>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { getProductsData, TProductsList } from '../../../api/interfaces';
+import { RouterLink } from 'vue-router';
+import { mapGetters } from 'vuex';
+import { TProductsList } from '../../../api/interfaces';
 import { ROUTE_NAMES } from '../../../constants/route-names-constants';
 
 export default defineComponent({
@@ -62,21 +64,17 @@ export default defineComponent({
             ROUTE_NAMES
         }
     },
-    mounted() {
-        this.getProducts()
-    },
-    methods: {
-        async getProducts() {
-            try {
-                const response = await getProductsData();
-                this.products = response.data
-            } catch (error) {
-                console.log(error);
-            }
-        }
+    computed: {
+        ...mapGetters(['allProducts'])
     }
 });
 </script>
+
+
+
+
+
+
 
 
 

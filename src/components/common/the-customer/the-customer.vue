@@ -12,7 +12,6 @@
                         <div class="product-info">
                             <div class="title">
                                 <h2 class="bold">Customer information</h2>
-                                {{ customer }}
                             </div>
                             <div class="title">
                                 <h2 class="bold">Company Name</h2>
@@ -90,6 +89,7 @@ export default defineComponent({
                 phone: '',
                 fax: '',
             } as ICustomer,
+            
             ROUTE_NAMES
         }
     },
@@ -117,21 +117,5 @@ export default defineComponent({
     }
 });
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <style lang="scss" src="./the-customer.scss" />
