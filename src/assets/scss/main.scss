@@ -4,34 +4,19 @@
 body {
 	background-color: rgb(249 250 251);
 }
-
-// li {
-// 	display: flex;
-// 	align-items: center;
-// 	min-height: 40px;
-// 	padding: 0 20px;
-// 	font-size: 16px;
-// }
-// li:hover {
-// 	background: rgb(57, 65, 80);
-// }
 .suppliers {
-		display: flex;
-		align-items: center;
-		color: white;
-		text-decoration: none;
-	}
+	display: flex;
+	align-items: center;
+	color: white;
+	text-decoration: none;
+}
 
 .app-inner-wrap {
 	position: relative;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
-	
-	
 	//router-view
-	
 	.view {
-		// background-color: gold;
 		margin-left: 15rem;
 		margin-top: 55px;
 	}

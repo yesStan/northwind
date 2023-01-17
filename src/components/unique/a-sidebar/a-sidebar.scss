@@ -1,3 +1,5 @@
+@import "../../../assets/fonts/fonts.scss";
+
 .a-sidebar {
 	.sidebar__list {
 		position: fixed;
@@ -10,24 +12,41 @@
 		color: rgb(210, 213, 218);
 
 		.logo {
+			display: flex;
+			align-items: center;
+			justify-self: center;
+
 			background-color: rgb(18 24 38);
 			color: white;
 			min-height: 55px;
+			padding:  0 12px 0;
+			font-family: 'Proxima Nova Bold';
+
+			.logo_ttl {
+				font-family: 'Proxima Nova bld';
+				font-size: 18px;
+				margin-right: 5px;
+			}
 		}
 
 		.disabled {
-            display: flex;
+			display: flex;
 			align-items: center;
+			letter-spacing: 0.5px;
 			color: rgb(156 163 175);
-			padding: 0 20px;
+			padding: 0 12px;
 			min-height: 40px;
 			font-size: 12px;
+			font-family: 'Proxima Nova Bold';
+			font-weight: 700;
 		}
 
 		.list {
-
+			display: flex;
+			align-items: center;
+			letter-spacing: 0.5px;
 			min-height: 40px;
-			padding: 0 20px;
+			padding: 0 12px;
 			font-size: 16px;
 		}
 		.router-link {
@@ -35,10 +54,13 @@
 			align-items: center;
 			text-decoration: none;
 			color: white;
-			
 		}
 		.text {
-			margin-left: 10px;
+			font-family: 'Proxima Nova Bold';
+			font-weight: 700;
+			font-size: 16px;
+			margin-left: 12px;
+			color: rgb(209 213 219);
 		}
 	}
 }

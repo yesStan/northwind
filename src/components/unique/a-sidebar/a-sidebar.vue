@@ -4,7 +4,7 @@
         class="a-sidebar"
     >
         <ul class="sidebar__list">
-            <li class="logo"><span>Northwind</span>Traders</li>
+            <li class="logo"><span class="logo_ttl">Northwind</span> Traders</li>
             <li class="disabled">GENERAL</li>
             <li class="list"><router-link
                     class="router-link"

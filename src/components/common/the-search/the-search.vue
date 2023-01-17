@@ -9,6 +9,7 @@
                 type="text"
                 v-model="search"
                 placeholder="Enter keyword..."
+                @keyup.enter="filter()"
             />
             <button
                 type="submit"

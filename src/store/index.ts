@@ -9,10 +9,6 @@ export const store = createStore({
             products: [],
             customers: [],
             orders: [],
-            // filteredValues: {
-            //     products: [],
-            //     customers: []
-            // },
         };
     },
     getters: {
@@ -47,18 +43,7 @@ export const store = createStore({
             } catch (error) {
                 console.log(error);
             }
-        },
-
-        // async filteredProducts({commit}) {
-        //     try {
-        //         const response = await getOrdersData();
-        //         commit('filteredValues', )
-
-                
-        //     } catch (error) {
-        //         console.log(error);
-        //     }
-        // } 
+        }, 
     },
     mutations: {
         setProducts(state, payload) {
