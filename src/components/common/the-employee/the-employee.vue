@@ -3,11 +3,13 @@
         :at-the-employee="atAttribute"
         class="the-employee"
     >
-    <div class="table-wrapper">
+        <div class="table-wrapper">
             <table class="customTable">
                 <thead>
                     <tr>
-                        <th>Employee information</th>
+                        <th>
+                            <TheIcon icon="ballot" />Employee information
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,22 +65,22 @@
                                 <h2 class="bold">Notes</h2>
                                 <p>{{ employee.notes }}</p>
                             </div>
-                    <td>
+                            <div class="title">
+                                <h2 class="bold">Reports To</h2>
+                                <router-link
+                                    :to="{ name: ROUTE_NAMES.EMPLOYEE_PROFILE, params: { id: employee.reportsTo } }"
+                                >
+                                    {{ employee.reportsTo }}
+                                </router-link>
+                            </div>
+                        </div>
                     </td>
-                    <div class="title">
-                        <h2 class="bold">Reports To</h2>
-                        <router-link :to="{ name: ROUTE_NAMES.EMPLOYEE_PROFILE, params: { id: employee.reportsTo } }">
-                            {{ employee.reportsTo }}
-                        </router-link>
-                    </div>
+                    <tr>
+                        <TheBbuton />
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        </td>
-        <tr>
-            <td><button>Go back</button></td>
-        </tr>
-        </tbody>
-        </table>
-    </div>
     </div>
 </template>
 
@@ -86,19 +88,19 @@
 import { defineComponent } from 'vue';
 import { ROUTE_NAMES } from '../../../constants/route-names-constants';
 import { getEmployeeData, IEmployee, IReport } from '../../../api/interfaces';
+import TheBbuton from '../the-bbuton';
+import TheIcon from '../the-icon';
 
 export default defineComponent({
     name: 'TheEmployee',
+    components: {
+        TheBbuton, TheIcon
+    },
     props: {
         atAttribute: {
             type: String,
             default: ''
         }
-    },
-    created() {
-        this.getEmployee()
-        this.$watch(
-            () => this.$route.params, this.getEmployee)
     },
     data() {
         return {
@@ -139,9 +141,14 @@ export default defineComponent({
                 notes: '',
                 reportsTo: null,
             } as IReport,
-
+            
             ROUTE_NAMES
         }
+    },
+    created() {
+        this.getEmployee()
+        this.$watch(
+            () => this.$route.params, this.getEmployee);
     },
     computed: {
         employeeId() {
@@ -152,11 +159,13 @@ export default defineComponent({
         async getEmployee() {
             try {
                 const response = await getEmployeeData(this.employeeId);
-                console.log(response.data);
-
                 const [{ employees, reportsToTable }] = response.data;
                 this.employee = employees
                 this.reportsToTable = reportsToTable
+
+                const query = response.queryInfo
+                this.$store.commit('addQueryInfo', query)
+
             } catch (error) {
                 console.log(error);
             }
@@ -164,6 +173,14 @@ export default defineComponent({
     }
 });
 </script>
+
+
+
+
+
+
+
+
 
 
 

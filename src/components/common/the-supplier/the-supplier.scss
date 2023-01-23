@@ -1,30 +1,52 @@
 .the-supplier {
-    padding: 24px;
+	padding: 24px;
+	border: 0 solid #e5e7eb;
 
+	.table-wrapper {
+		background-color: rgb(255 255 255);
+
+		.supplier-block {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			grid-template-rows: 2;
+			grid-column-gap: 10px;
+			grid-row-gap: 0px;
+
+			.supplier-info {
+				grid-area: 1 / 1 / 2 / 2;
+			}
+			.supplier-info-two {
+				grid-area: 1 / 2 / 2 / 3;
+			}
+		}
+	}
+
+	.bold {
+		font-weight: bold;
+		margin-bottom: 8px;
+	}
+	.title {
+		margin-bottom: 0.75rem;
+	}
+
+	thead tr th {
+		display: flex;
+		font-weight: bold;
+		align-items: center;
+		border-bottom: 0.2px solid #e5e7eb;
+		padding: 16px;
+		color: black;
+	}
 	table.customTable {
 		width: 100%;
 		background-color: #ffffff;
-		border-collapse: collapse;
-		border-width: 2px;
-		// border-color: #7EA8F8;
-		border-style: solid;
+		border-style: none;
 		color: #000000;
 	}
 
 	table.customTable td,
 	table.customTable {
-		border-width: 2px;
-		// border-color: #7EA8F8;
-		border-style: solid;
-		padding: 5px;
-	}
-
-    .supplier-block {
-        display: flex;
-        align-items: center;
-    }
-
-	.bold {
-		font-weight: bold;
+		padding: 24px;
+		border: 0.1px solid #e5e7eb;
 	}
 }

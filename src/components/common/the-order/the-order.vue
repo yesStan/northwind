@@ -7,7 +7,9 @@
             <table class="customTable">
                 <thead>
                     <tr>
-                        <th>Order information</th>
+                        <th>
+                            <TheIcon icon="ballot" />Order information
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -15,7 +17,9 @@
                         <div class="product-info">
                             <div class="title">
                                 <h2 class="bold">Customer Id</h2>
-                                <router-link :to="{ name: ROUTE_NAMES.CUSTOMER_PROFILE, params: { id: orders.CustomerID } }">
+                                <router-link
+                                    :to="{ name: ROUTE_NAMES.CUSTOMER_PROFILE, params: { id: orders.CustomerID } }"
+                                >
                                     {{ orders.CustomerID }}
                                 </router-link>
 
@@ -80,18 +84,15 @@
                             </div>
                         </div>
                     </td>
-                    <tr>
-                        <td><button>Go back</button></td>
-                    </tr>
                 </tbody>
             </table>
-            <table class="customTable">
+            <table class="customTable-two">
                 <thead>
                     <tr>
                         <th>Products in Order</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="order-inf">
                     <tr>
                         <td>Product</td>
                         <td>Quantity</td>
@@ -115,7 +116,11 @@
                         <td>{{ item.Discount }}</td>
                     </tr>
                 </tbody>
+                <tr>
+                    <TheBbuton />
+                </tr>
             </table>
+
         </div>
     </div>
 </template>
@@ -124,10 +129,15 @@
 import { defineComponent } from 'vue';
 import { getOrderData, IOrder, IProductInOrder } from '../../../api/interfaces';
 import { ROUTE_NAMES } from '../../../constants/route-names-constants';
+import TheIcon from '../the-icon';
+import TheBbuton from '../the-bbuton';
 
 
 export default defineComponent({
     name: 'TheOrder',
+    components: {
+        TheIcon, TheBbuton
+    },
     props: {
         atAttribute: {
             type: String,
@@ -171,15 +181,14 @@ export default defineComponent({
         async getOrder() {
             try {
                 const response = await getOrderData(this.orderId);
-                console.log(response.data);
-
-                // orderInfo: [ orderInfo ]
-
                 const { orderInfo, productsInOrder } = response.data;
                 const [localOrderInfo] = orderInfo
-
                 this.orders = localOrderInfo;
                 this.productsOrder = productsInOrder;
+
+                const query  = response.queryInfo                
+                this.$store.commit('addQueryInfo', query)
+
             } catch (error) {
                 console.log(error);
             }
@@ -187,6 +196,8 @@ export default defineComponent({
     }
 });
 </script>
+
+
 
 
 

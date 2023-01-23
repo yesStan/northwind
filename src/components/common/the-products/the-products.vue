@@ -4,41 +4,24 @@
         class="the-products"
     >
 
-        <div
-            class="table-wrapper"
-        >
+        <div class="title">
+            <p>Products</p>
+            <Vue3EasyDataTable
+                :headers="headers"
+                :items="items"
+            alternating
+            buttons-pagination
 
-            <table class="customTable">
-                <thead>
-                    <tr>
-                        <th>Products</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Name</td>
-                        <td>Qt per unit</td>
-                        <td>Price</td>
-                        <td>Stock</td>
-                        <td>Orders</td>
-                    </tr>
-                    <tr v-for="item in allProducts">
-                        <td>
-                            <router-link
-                                :to="{ name: ROUTE_NAMES.PRODUCT_PROFILE, params: { id: item.categoryID } }"
-                                props:
-                                true
-                            >
-                                {{ item.productName }}
-                            </router-link>
-                        </td>
-                        <td>{{ item.productName }}</td>
-                        <td>{{ item.quantityPerUnit }}</td>
-                        <td>{{ item.unitPrice }}</td>
-                        <td>{{ item.unitsInStock }}</td>
-                    </tr>
-                </tbody>
-            </table>
+            >
+                <template #item-indicator.productName="item">
+                    <router-link :to="{ name: ROUTE_NAMES.PRODUCT_PROFILE, params: { id: item.categoryID } }">
+                        {{ item.productName }}
+                    </router-link>
+                </template>
+                <template #item-indicator.unitPrice="item">
+                    $ {{ item.unitPrice }}
+                </template>
+            </Vue3EasyDataTable>
         </div>
     </div>
 </template>
@@ -47,11 +30,17 @@
 import { defineComponent } from 'vue';
 import { RouterLink } from 'vue-router';
 import { mapGetters } from 'vuex';
-import { TProductsList } from '../../../api/interfaces';
+import { getProductsData, TProductsList } from '../../../api/interfaces';
 import { ROUTE_NAMES } from '../../../constants/route-names-constants';
+
+import Vue3EasyDataTable from 'vue3-easy-data-table';
+import type { Header, Item } from "vue3-easy-data-table";
 
 export default defineComponent({
     name: 'TheProducts',
+    components: {
+        Vue3EasyDataTable
+    },
     props: {
         atAttribute: {
             type: String,
@@ -60,28 +49,37 @@ export default defineComponent({
     },
     data() {
         return {
-            products: [] as TProductsList,
-            ROUTE_NAMES
+            products: [],
+            ROUTE_NAMES,
+            headers: [
+                { text: "Name", value: "indicator.productName",  },
+                { text: "Qt per unit", value: 'quantityPerUnit', },
+                { text: "Price", value: "indicator.unitPrice" },
+                { text: "Stock", value: "unitsInStock" },
+                { text: "Orders", value: "unitsOnOrder" },
+            ],
+            items: [] as TProductsList
         }
     },
-    computed: {
-        ...mapGetters(['allProducts'])
+    created() {
+        this.getProducts()
+    },
+    methods: {
+        async getProducts() {
+            try {
+                const response = await getProductsData();
+                this.items = response.data
+
+                const query  = response.queryInfo                
+                this.$store.commit('addQueryInfo', query)
+                
+            } catch (error) {
+                console.log(error);
+            }
+        }
     }
 });
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <style lang="scss" src="./the-products.scss" />

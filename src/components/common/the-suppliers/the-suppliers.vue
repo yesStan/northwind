@@ -3,46 +3,26 @@
         :at-the-suppliers="atAttribute"
         class="the-suppliers"
     >
-        <div
-            class="table-wrapper"
-            v-if="suppliers.length"
-        >
-            <table class="customTable">
-                <thead>
-                    <tr>
-                        <th>Suppliers</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td>Company</td>
-                        <td>Contact</td>
-                        <td>Title</td>
-                        <td>City</td>
-                        <td>Country</td>
-                    </tr>
-                    <tr
-                        v-for="supplier in suppliers"
-                        :key="supplier.supplierID"
-                    >
-                        <td>img</td>
-                        <td>
-                            <router-link
-                                :to="{ name: ROUTE_NAMES.SUPPLIER_PROFILE, params: { id: supplier.supplierID } }"
-                            >
-                                {{ supplier.companyName }}
-                            </router-link>
-                        </td>
-                        <td>{{ supplier.contactName }}</td>
-                        <td>{{ supplier.contactTitle }}</td>
-                        <td>{{ supplier.city }}</td>
-                        <td>{{ supplier.country }}</td>
-                    </tr>
-                </tbody>
-            </table>
+
+        <div class="title">
+            <p>Suppliers</p>
+            <Vue3EasyDataTable
+                :headers="headers"
+                :items="items"
+                alternating
+                buttons-pagination
+            >
+                <template #item-indicator.companyName="item">
+                    <router-link :to="{ name: ROUTE_NAMES.SUPPLIER_PROFILE, params: { id: item.supplierID } }">
+
+                        {{ item.companyName }}
+                    </router-link>
+                </template>
+                <template #item-indicator="item">
+                    <TheAvatar :fullName="item.contactName" />
+                </template>
+            </Vue3EasyDataTable>
         </div>
-        <div v-else>loading...</div>
     </div>
 </template>
 
@@ -52,8 +32,16 @@ import { api } from '../../../services/api';
 import { ROUTE_NAMES } from '../../../constants/route-names-constants';
 import { getSuppliersData, TSuppliersList } from '../../../api/interfaces'
 
+import TheAvatar from '../the-avatar';
+
+import Vue3EasyDataTable from 'vue3-easy-data-table';
+import type { Header, Item } from "vue3-easy-data-table";
+
 export default defineComponent({
     name: 'TheSuppliers',
+    components: {
+        Vue3EasyDataTable, TheAvatar
+    },
     props: {
         atAttribute: {
             type: String,
@@ -62,19 +50,31 @@ export default defineComponent({
     },
     data() {
         return {
-            suppliers: [] as TSuppliersList,
+            // suppliers: [] as TSuppliersList,
             supplierID: Number(),
-            ROUTE_NAMES
+            ROUTE_NAMES,
+            headers: [
+                { text: "", value: "indicator" },
+                { text: "Company", value: 'indicator.companyName' },
+                { text: "Contact", value: "contactName" },
+                { text: "Title", value: "contactTitle" },
+                { text: "City", value: "city" },
+                { text: "Country", value: "country", sortable: true },
+            ],
+            items: [] as TSuppliersList,
         }
     },
-    mounted() {
+    created() {
         this.getSuppliers();
     },
     methods: {
         async getSuppliers() {
             try {
                 const response = await getSuppliersData();
-                this.suppliers = response.data
+                this.items = response.data
+
+                const query = response.queryInfo
+                this.$store.commit('addQueryInfo', query)
             } catch (error) {
                 console.log(error);
             }
@@ -86,17 +86,6 @@ export default defineComponent({
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 <style lang="scss" src="./the-suppliers.scss" />
+
+

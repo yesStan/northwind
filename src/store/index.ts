@@ -6,54 +6,39 @@ export const store = createStore({
     // },
     state() {
         return {
-            products: [],
-            customers: [],
-            orders: [],
+            // products: [],
+            // customers: [],
+            // orders: [],
+            queryInfo: [{
+                queryExecutionTime: '',
+                queryString: '',
+                queryTS: ''
+            }]
         };
     },
     getters: {
-        allProducts: state => state.products,
-        allCustomers: state => state.customers,
-        allOrders: state => state.orders,
+        allQueryInfo: state => state.queryInfo
+        // allCustomers: state => state.customers,
+        // allOrders: state => state.orders,
 
     },
     actions: {
-        async fetchProducts({commit}) {
-            try {
-                const response = await getProductsData();
-                commit('setProducts', response.data)
-            } catch (error) {
-                console.log(error);
-            }
-        } ,
-        async fetchCustomers({commit}) {
-            try {
-                const response = await getCustomersData();
-                commit('setCustomers', response.data)
-                
-            } catch (error) {
-                console.log(error);
-            }
-        } ,
-        async fetchOrders({commit}) {
-            try {
-                const response = await getOrdersData();
-                commit('setOrders', response.data)
-                
-            } catch (error) {
-                console.log(error);
-            }
-        }, 
+        // async fetchProducts({commit}) {
+        //     try {
+        //         const response = await getProductsData();
+        //         commit('setProducts', response.data)
+        //     } catch (error) {
+        //         console.log(error);
+        //     }
+        // } 
     },
     mutations: {
-        setProducts(state, payload) {
-            state.products = payload
-        },
-        setCustomers(state, payload) {
-            state.customers = payload
-        },
-        setOrders(state, payload) {
-            state.orders = payload
-        }
+        addQueryInfo (state, queryInfo) {
+            // mutate state
+            state.queryInfo.push(queryInfo)
+          }
+        // setQueryInfo(state, payload) {
+        //     state.queryInfo = payload
+        // }
     }
 });

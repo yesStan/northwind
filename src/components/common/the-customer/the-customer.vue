@@ -4,7 +4,9 @@
             <table class="customTable">
                 <thead>
                     <tr>
-                        <th>Customer information</th>
+                        <th>
+                            <TheIcon icon="ballot" />Customer information
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,7 +60,7 @@
                         </div>
                     </td>
                     <tr>
-                        <td><button>Go back</button></td>
+                        <TheBbuton />
                     </tr>
                 </tbody>
             </table>
@@ -70,10 +72,15 @@
 import { defineComponent } from 'vue';
 import { getCustomerData, ICustomer } from '../../../api/interfaces';
 import { ROUTE_NAMES } from '../../../constants/route-names-constants';
+import TheBbuton from '../the-bbuton';
+import TheIcon from '../the-icon';
 
 
 export default defineComponent({
     name: 'TheCustomer',
+    components: {
+        TheBbuton, TheIcon
+    },
     data() {
         return {
             customer: {
@@ -89,7 +96,7 @@ export default defineComponent({
                 phone: '',
                 fax: '',
             } as ICustomer,
-            
+
             ROUTE_NAMES
         }
     },
@@ -105,10 +112,11 @@ export default defineComponent({
         async getCustomer() {
             try {
                 const response = await getCustomerData(this.customerId);
-                console.log(response.data);
-
-                const [ customers ] = response.data;
+                const [customers] = response.data;
                 this.customer = customers
+
+                const query = response.queryInfo
+                this.$store.commit('addQueryInfo', query)
 
             } catch (error) {
                 console.log(error);

@@ -7,7 +7,9 @@
             <table class="customTable">
                 <thead>
                     <tr>
-                        <th>Product information</th>
+                        <th>
+                            <TheIcon icon="ballot" />Product information
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,7 +37,7 @@
                                 <p>{{ product.unitPrice }}</p>
                             </div>
                         </div>
-                        <div class="product-info">
+                        <div class="product-info-two">
                             <div class="title">
                                 <h2 class="bold">Units In Stock</h2>
                                 <p>{{ product.unitsInStock }}</p>
@@ -51,7 +53,7 @@
                         </div>
                     </td>
                     <tr>
-                        <td><button>Go back</button></td>
+                        <TheBbuton />
                     </tr>
                 </tbody>
             </table>
@@ -63,9 +65,14 @@
 import { defineComponent } from 'vue';
 import { ROUTE_NAMES } from '../../../constants/route-names-constants';
 import { getProductData, IProduct } from '../../../api/interfaces';
+import TheBbuton from '../the-bbuton';
+import TheIcon from '../the-icon';
 
 export default defineComponent({
     name: 'TheProduct',
+    components: {
+        TheBbuton, TheIcon
+    },
     props: {
         atAttribute: {
             type: String,
@@ -105,11 +112,13 @@ export default defineComponent({
         async getProduct() {
             try {
                 const response = await getProductData(this.productId);
-                console.log(response.data);
-
                 const [{ products, suppliers }] = response.data;
                 this.supplier = suppliers;
                 this.product = products;
+
+                const query  = response.queryInfo
+                this.$store.commit('addQueryInfo', query)
+
             } catch (error) {
                 console.log(error);
             }
@@ -117,6 +126,8 @@ export default defineComponent({
     }
 });
 </script>
+
+
 
 
 

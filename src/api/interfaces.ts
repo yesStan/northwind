@@ -435,6 +435,27 @@ function getEmployeeData(id: number): TGetEmployeeResponse {
 
 
 
+// ****************************************************************************************************
+// endpoint: postSearch
+// ****************************************************************************************************
+export type TSearchTable = 'products' | 'customers'
+
+export interface ISearchParams {
+    table: TSearchTable
+    search: string
+}
+export interface ISearchResponse{
+    data: Array<any>
+    queryInfo: IQuery
+}
+
+export type TSearchResponse = Promise<ISearchResponse>
+
+function search(params: ISearchParams): TSearchResponse {
+    return api.post('/search', params)
+}
+
+
 export {
     getSuppliersData,
     getSuppliersIdData,
@@ -449,5 +470,7 @@ export {
     getProductData,
 
     getCustomersData,
-    getCustomerData
+    getCustomerData,
+    
+    search
 }
