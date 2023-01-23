@@ -65,7 +65,7 @@
                                 <h2 class="bold">Notes</h2>
                                 <p>{{ employee.notes }}</p>
                             </div>
-                            <div class="title">
+                            <div class="title" v-if="employee.reportsTo">
                                 <h2 class="bold">Reports To</h2>
                                 <router-link
                                     :to="{ name: ROUTE_NAMES.EMPLOYEE_PROFILE, params: { id: employee.reportsTo } }"
@@ -145,18 +145,31 @@ export default defineComponent({
             ROUTE_NAMES
         }
     },
+    watch: {
+        '$route': function(value) {
+            if (value?.params?.id) {
+
+                console.log('changer');
+                this.getEmployee();
+            }
+        }
+    },
     created() {
         this.getEmployee()
-        this.$watch(
-            () => this.$route.params, this.getEmployee);
+        // this.$watch(
+        //     () => this.$route.params, this.getEmployee);
     },
     computed: {
         employeeId() {
-            return Number(this.$route.params.id);
+            return Number(this.$route?.params?.id);
         }
     },
     methods: {
         async getEmployee() {
+            if (!this.employeeId) {
+                return
+            }
+
             try {
                 const response = await getEmployeeData(this.employeeId);
                 const [{ employees, reportsToTable }] = response.data;

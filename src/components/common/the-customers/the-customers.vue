@@ -4,7 +4,7 @@
         class="the-customers"
     >
         <div class="title">
-            <p>Customers</p>
+            <p class="main__title">Customers</p>
             <Vue3EasyDataTable
                 :headers="headers"
                 :items="items"

@@ -9,11 +9,7 @@ export const store = createStore({
             // products: [],
             // customers: [],
             // orders: [],
-            queryInfo: [{
-                queryExecutionTime: '',
-                queryString: '',
-                queryTS: ''
-            }]
+            queryInfo: []
         };
     },
     getters: {

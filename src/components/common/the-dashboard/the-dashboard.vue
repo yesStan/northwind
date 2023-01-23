@@ -3,15 +3,16 @@
         :at-the-dashboard="atAttribute"
         class="the-dashboard"
     >
-        <h1 class="text-rendering">Activity log</h1>
+        <h1 class="text-rendering__title">Activity log</h1>
+        <p class="metrics-title">Explore the app and see metrics here</p>
         <div
             class="query-items"
             v-for="items in allQueryInfo"
         >
             <div class="query-logs">
-                <span class="text-rendering">string:</span> {{ items.queryString }}<br>
-                <span class="text-rendering">ex time:</span> {{ items.queryExecutionTime }} <br>
-                <span class="text-rendering">ts:</span> {{ items.queryTS }}<br>
+                <span class="text-rendering">SELECT: </span> {{ items.queryString }}<br>
+                <span class="text-rendering">EXECUTIN TIME time: </span> {{ items.queryExecutionTime }} <br>
+                <span class="text-rendering">TS: </span> {{ items.queryTS }}<br>
             </div> <br>
         </div>
     </div>

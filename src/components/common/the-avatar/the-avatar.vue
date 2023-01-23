@@ -5,9 +5,9 @@
     >
         <div
             id="profileImage"
-            :style="{ 'background': stringToHslColor(lastName || fullName)  }"
+            :style="{ 'background': stringToHslColor(lastName || fullName) }"
         >
-        
+
             {{ initials }}
             {{ separateCredentials }}
         </div>
@@ -50,29 +50,40 @@ export default defineComponent({
 
     methods: {
         getText() {
-         return this.separateCredentials = this.firstName.charAt(0) + this.lastName.charAt(0) 
+            return this.separateCredentials = this.firstName.charAt(0) + this.lastName.charAt(0)
         },
-        
+
         getFullName() {
-            const findFisrtName = this.fullName.charAt(0)
-            const findLastName = this.fullName.split(' ')
-            const lastFindLastSymbol = findLastName[findLastName.length - 1]
+            const preparedFullName = this.fullName.trim();
+            const findFisrtName = preparedFullName.charAt(0)?.trim() || '';
+            const findLastName = preparedFullName.split(' ')
+            const findLastSymbol = findLastName[findLastName.length - 1]?.trim() || '';
 
-            return this.initials = findFisrtName.charAt(0) + lastFindLastSymbol.charAt(0)
+            return this.initials = findFisrtName.charAt(0) + findLastSymbol.charAt(0)
         },
 
-        stringToHslColor(str:any) {
-            let hash = 0;
-            for (let i = 0; i < str.length; i++) {
-                hash = str.charCodeAt(i) + ((hash << 10 ) - hash);
-            }
-            let h = hash % 360;
+        stringToHslColor(str: any) {
+            const r = Math.floor(Math.random() * 255);
+            const g = Math.floor(Math.random() * 255);
+            const b = Math.floor(Math.random() * 255);
 
-            return 'hsl(' + h + ', ' + 100 + '%, ' + 80 + '%)';
+            return `rgb(${r},${g},${b})`
         }
+
+        // make permanent color based on letters
+        // stringToHslColor(str:any) {
+        //     let hash = 0;
+        //     for (let i = 0; i < str.length; i++) {
+        //         hash = str.charCodeAt(i) + ((hash << 10 ) - hash);
+        //     }
+        //     let h = hash % 360;
+        //     return 'hsl(' + h + ', ' + 100 + '%, ' + 80 + '%)';
+        // }
     }
 });
 </script>
+
+
 
 
 

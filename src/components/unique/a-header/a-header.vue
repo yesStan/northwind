@@ -5,8 +5,32 @@
     >
         <div class="header-wrapper">
             <div class="time">{{ time }}</div>
-            <div class="links">SQLite Links</div>
+            <div class="links">
+                <div class="dropdown-wrapper">
+                    <button
+                        v-on:click="show = !show"
+                        class="text-white"
+                    >SQLite Links <i></i></button>
+
+                    <div
+                        class="dropdown-menu"
+                        v-if="show"
+                    >
+                        <ul>
+                            <li v-for="item in links">
+                                <a
+                                    href=""
+                                    class=""
+                                >{{ item }}</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
         </div>
+
+
     </div>
 </template>
 
@@ -25,6 +49,12 @@ export default defineComponent({
         return {
             interval: Number(),
             time: '',
+            show: false,
+            links: [
+                'Introducing D1',
+                'SQLite SQL Flavour',
+                'Durable Objects',
+            ]
         }
     },
     beforeDestroy() {
@@ -41,6 +71,10 @@ export default defineComponent({
     }
 });
 </script>
+
+
+
+
 
 
 

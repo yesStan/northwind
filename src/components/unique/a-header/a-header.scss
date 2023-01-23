@@ -9,6 +9,16 @@
 	font-family: 'Proxima Nova Bold';
 	font-weight: 500;
 
+	.dropdown-wrapper{
+		position: relative;
+
+		.dropdown-menu {
+			position: absolute;
+			top: 25px;
+			left: 0;
+		}
+	}
+
 	.header-wrapper {
 		display: flex;
 		align-items: center;

@@ -5,7 +5,7 @@
     >
 
         <div class="title">
-            <p>Products</p>
+            <p class="main__title">Products</p>
             <Vue3EasyDataTable
                 :headers="headers"
                 :items="items"
