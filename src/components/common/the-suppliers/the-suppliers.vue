@@ -3,23 +3,45 @@
         :at-the-suppliers="atAttribute"
         class="the-suppliers"
     >
-
         <div class="title">
-            <p class="main__title">Suppliers</p>
+            <p class="main__title">Suppliers
+                <TheIcon
+                    class="links-color"
+                    icon="redo"
+                />
+            </p>
             <Vue3EasyDataTable
                 :headers="headers"
                 :items="items"
                 alternating
                 buttons-pagination
+                hide-rows-per-page
             >
                 <template #item-indicator.companyName="item">
                     <router-link :to="{ name: ROUTE_NAMES.SUPPLIER_PROFILE, params: { id: item.supplierID } }">
-
                         {{ item.companyName }}
                     </router-link>
                 </template>
                 <template #item-indicator="item">
                     <TheAvatar :fullName="item.contactName" />
+                </template>
+
+                <template #pagination>
+                    <div class="pagination_c">
+
+                        <div class="pages-quantity">
+                            <button
+                                class="pagination-button"
+                                v-for="page, index in totalPages"
+                                @click="getSuppliers(page)"
+                            >
+                                {{ page }}
+                            </button>
+                        </div>
+                        <div class="current-of-total">
+                            Page: {{ currentPage }} of {{ totalPages }}
+                        </div>
+                    </div>
                 </template>
             </Vue3EasyDataTable>
         </div>
@@ -36,11 +58,17 @@ import TheAvatar from '../the-avatar';
 
 import Vue3EasyDataTable from 'vue3-easy-data-table';
 import type { Header, Item } from "vue3-easy-data-table";
+import TheIcon from '../the-icon';
+import { prepareQueryInfoCommitPayload } from '../../../services/store-helper-service';
+import { count } from 'console';
+
 
 export default defineComponent({
     name: 'TheSuppliers',
     components: {
-        Vue3EasyDataTable, TheAvatar
+        Vue3EasyDataTable,
+        TheAvatar,
+        TheIcon
     },
     props: {
         atAttribute: {
@@ -62,19 +90,24 @@ export default defineComponent({
                 { text: "Country", value: "country", sortable: true },
             ],
             items: [] as TSuppliersList,
+            totalPages: 0,
+            currentPage: 0
         }
     },
     created() {
-        this.getSuppliers();
+        this.getSuppliers(1);
     },
     methods: {
-        async getSuppliers() {
+        async getSuppliers(page: number) {
+            this.currentPage = page;
             try {
-                const response = await getSuppliersData();
+                const response = await getSuppliersData({ params: { page } });
                 this.items = response.data
+                const perPage = 20
+                const totalPage = response.count / perPage;
+                this.totalPages = Math.ceil(totalPage)
 
-                const query = response.queryInfo
-                this.$store.commit('addQueryInfo', query)
+                this.$store.commit('addMultipleQueryInfo', prepareQueryInfoCommitPayload(response.data.length, response.queryInfo, response.workerId))
             } catch (error) {
                 console.log(error);
             }
@@ -83,6 +116,8 @@ export default defineComponent({
 });
 
 </script>
+
+
 
 
 

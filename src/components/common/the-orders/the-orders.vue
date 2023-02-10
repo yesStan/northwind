@@ -4,14 +4,19 @@
         class="the-orders"
     >
 
-    <div class="title">
-            <p class="main__title">Orders</p>
+        <div class="title">
+            <p class="main__title">Orders
+                <TheIcon
+                    class="links-color"
+                    icon="redo"
+                />
+            </p>
             <Vue3EasyDataTable
                 :headers="headers"
                 :items="items"
-            alternating
-            buttons-pagination
-
+                alternating
+                buttons-pagination
+                hide-rows-per-page
             >
                 <template #item-indicator.OrderID="item">
                     <router-link :to="{ name: ROUTE_NAMES.ORDER_PROFILE, params: { id: item.OrderID } }">
@@ -22,9 +27,28 @@
                 <template #item-indicator.total_products_price="item">
                     ${{ item.total_products_price }}
                 </template>
+
+                <template #pagination>
+                    <div class="pagination_c">
+
+                        <div class="pages-quantity">
+                            <button
+                                class="pagination-button"
+                                v-for="page in totalPages"
+                                @click="fetchOrders(page)"
+                            >
+                                {{ page }}
+                            </button>
+                        </div>
+                        <div class="current-of-total">
+                            Page: {{ currentPage }} of {{ totalPages }}
+                        </div>
+
+
+                    </div>
+                </template>
             </Vue3EasyDataTable>
         </div>
-
     </div>
 </template>
 
@@ -36,11 +60,14 @@ import { getOrdersData, TOrderList } from '../../../api/interfaces'
 import { ROUTE_NAMES } from '../../../constants/route-names-constants';
 import Vue3EasyDataTable from 'vue3-easy-data-table';
 import type { Header, Item } from "vue3-easy-data-table";
+import TheIcon from '../the-icon';
+import { prepareQueryInfoCommitPayload } from '../../../services/store-helper-service';
+
 
 export default defineComponent({
     name: 'TheOrders',
     components: {
-        Vue3EasyDataTable
+        Vue3EasyDataTable, TheIcon
     },
     props: {
         atAttribute: {
@@ -62,30 +89,37 @@ export default defineComponent({
                 { text: "City", value: "ShipCity" },
                 { text: "Country", value: "ShipCountry" },
             ],
-            items: [] as TOrderList
+            items: [] as TOrderList,
+            totalPages: 0,
+            currentPage: 0
         }
     },
     created() {
-        this.fetchOrders()
+        this.fetchOrders(1)
     },
     computed: {
         // ...mapGetters(['allOrders']), 
     },
     methods: {
-        async fetchOrders() {
+        async fetchOrders(page: number) {
+            this.currentPage = page;
             try {
-                const response = await getOrdersData();
-                this.items = response.data
-                //@ts-ignore
-                const query  = response.queryInfo                
-                this.$store.commit('addQueryInfo', query)
+                const response = await getOrdersData({ params: { page } });
+                const perPage = 20
+                const totalPage = response.count / perPage;
 
+                this.totalPages = parseFloat(totalPage.toFixed())
+                this.items = response.data
+
+                this.$store.commit('addMultipleQueryInfo', prepareQueryInfoCommitPayload(response.data.length, response.queryInfo, response.workerId))
             } catch (error) {
                 console.log(error);
             }
-        }, 
+        },
     }
 });
 </script>
+
+
 
 <style lang="scss" src="./the-orders.scss" />

@@ -1,6 +1,7 @@
 <template>
     <div
         :at-a-header="atAttribute"
+        id="media"
         class="a-header"
     >
         <div class="header-wrapper">
@@ -10,7 +11,10 @@
                     <button
                         v-on:click="show = !show"
                         class="text-white"
-                    >SQLite Links <i></i></button>
+                    >
+                        <TheIcon class="links-color" icon="menu" /> <span class="sql-lite__linqs">SQLite Links</span>
+                        <TheIcon class="links-color" icon="keyboard_arrow_down" />
+                    </button>
 
                     <div
                         class="dropdown-menu"
@@ -18,12 +22,14 @@
                     >
                         <ul>
                             <li v-for="item in links">
-                                <a
+                                <a class="header-links"
                                     href=""
-                                    class=""
-                                >{{ item }}</a>
+                                ><TheIcon class="links-color" style="margin-right: 8px;" icon="link"/> {{ item }}</a>
                             </li>
                         </ul>
+                    </div>
+                    <div class="more-vert">
+                        <TheIcon class="links-color" icon="more_vert" />
                     </div>
 
                 </div>
@@ -35,42 +41,50 @@
 </template>
 
 <script lang="ts">
+import { right } from '@popperjs/core';
 import { defineComponent } from 'vue';
+import TheIcon from '../../common/the-icon';
+
 
 export default defineComponent({
-    name: 'AHeader',
+    name: "AHeader",
     props: {
         atAttribute: {
             type: String,
-            default: ''
+            default: ""
         }
     },
     data() {
         return {
             interval: Number(),
-            time: '',
+            time: "",
             show: false,
             links: [
-                'Introducing D1',
-                'SQLite SQL Flavour',
-                'Durable Objects',
+                "Introducing D1",
+                "SQLite SQL Flavour",
+                "Durable Objects",
             ]
-        }
+        };
     },
     beforeDestroy() {
-        clearInterval(this.interval)
+        clearInterval(this.interval);
     },
     created() {
         this.interval = window.setInterval(() => {
             this.time = Intl.DateTimeFormat(navigator.language, {
-                hour: 'numeric',
-                minute: 'numeric',
-                second: 'numeric'
-            }).format()
-        }, 1000)
-    }
+                hour: "numeric",
+                minute: "numeric",
+                second: "numeric"
+            }).format();
+        }, 1000);
+    },
+    components: { TheIcon }
 });
 </script>
+
+
+
+
 
 
 

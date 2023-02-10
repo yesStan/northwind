@@ -2,29 +2,34 @@
 
 .the-home {
 	margin-left: 15rem;
-	padding: 24px;
-	font-family: 'Proxima Nova Bold';
+	padding: 0 24px 24px 24px;
+
 	.text-bottom {
-		font-size: 18px;
-		padding: 24px;
+		font-size: 16px;
+		padding: 16px 24px 0 24px;
 	}
 	.home-wrapper {
         line-height: 1.5rem;
+		padding-top: 48px;
+
 		.main-title {
 			font-size: 1.5rem;
-			line-height: 2rem;
-			font-weight: 500;
-			padding: 24px;
+			line-height: 30px;
+			padding: 0 24px;
+
 			.title {
-				font-size: 1.5rem;
-				font-weight: 700;
-				line-height: 2rem;
-				margin: 5px 0;
+				
+				font-weight: 400;
+				// font-size: 1.5rem;
+				// font-weight: 700;
+				// line-height: 2rem;
+				// margin: 5px 0;
 			}
 			.desc {
 				font-size: 18px;
-				font-weight: 700;
-				letter-spacing: 0.5px;
+				padding-top: 0.5rem;
+				// font-weight: 700;
+				// letter-spacing: 0.5px;
 				color: rgb(156 163 175);
 			}
 		}
@@ -32,6 +37,7 @@
 			// display: flex;
 			// align-items: flex-start;
 			padding: 0 24px;
+			
 		}
 	}
 }
@@ -42,8 +48,8 @@
 }
 .welcome {
 	.text-base {
-		font-size: 18px;
-		padding-bottom: 16px;
+		font-size: 16px;
+		padding: 16px 0 0 0;
 	}
 	.fl {
 		float: right;

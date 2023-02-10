@@ -4,16 +4,10 @@ import router from './routes';
 import { store } from './store';
 import 'vue3-easy-data-table/dist/style.css';
 
-
-
-
 createApp(App)
     .use(router)
     .use(store)
     .mount('#app')
-
-
-    
 
 // import 'vue3-easy-data-table/dist/style.css';
 

@@ -5,7 +5,7 @@
     >
         <div class="home-wrapper">
             <div class="main-title">
-                <h1 class="title">Welcome to Northwind Traders</h1>
+                <p class="title">Welcome to Northwind Traders</p>
                 <h2 class="desc">Running on Cloudflare's D1</h2>
             </div>
             <div class="home">

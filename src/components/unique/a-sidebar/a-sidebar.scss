@@ -1,6 +1,93 @@
-@import "../../../assets/fonts/fonts.scss";
+@import '../../../assets/fonts/fonts.scss';
+
+@media screen and (max-width: 600px) {
+
+	#menu__toggle {
+		opacity: 0;
+	}
+	#menu__toggle:checked ~ .menu__btn > span {
+		transform: rotate(45deg);
+	}
+	#menu__toggle:checked ~ .menu__btn > span::before {
+		top: 0;
+		transform: rotate(0);
+	}
+	#menu__toggle:checked ~ .menu__btn > span::after {
+		top: 0;
+		transform: rotate(90deg);
+	}
+	#menu__toggle:checked ~ .menu__box {
+		visibility: visible;
+		left: 0;
+	}
+
+	.menu__btn {
+		display: flex;
+		align-items: center;
+		position: fixed;
+		top: 15px;
+		left: 20px;
+		width: 26px;
+		height: 26px;
+		cursor: pointer;
+		z-index: 11;
+	}
+
+	.menu__btn > span,
+	.menu__btn > span::before,
+	.menu__btn > span::after {
+		display: block;
+		position: absolute;
+		width: 100%;
+		height: 2px;
+		background-color: #616161;
+		transition-duration: 0.25s;
+	}
+	.menu__btn > span::before {
+		content: '';
+		top: -8px;
+	}
+	.menu__btn > span::after {
+		content: '';
+		top: 8px;
+	}
+
+	.sidebar__list {
+		display: block;
+		position: fixed;
+		visibility: hidden;
+		top: 0;
+		left: -100%;
+		width: 300px;
+		height: 100%;
+		margin: 0;
+		padding: 80px 0;
+		list-style: none;
+		background-color: #eceff1;
+		box-shadow: 1px 0px 6px rgba(0, 0, 0, 0.2);
+		transition-duration: 0.25s;
+	}
+
+	li {
+		display: block;
+		padding: 12px 24px;
+		color: #333;
+		font-family: 'Roboto', sans-serif;
+		font-size: 20px;
+		font-weight: 600;
+		text-decoration: none;
+		transition-duration: 0.25s;
+	}
+	li:hover {
+		background-color: #cfd8dc;
+	}
+}
 
 .a-sidebar {
+	font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+		Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
+		Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+
 	.sidebar__list {
 		position: fixed;
 		top: 0;
@@ -10,6 +97,7 @@
 		height: 100vh;
 		background-color: rgb(33 41 54);
 		color: rgb(210, 213, 218);
+		z-index: 10;
 
 		.logo {
 			display: flex;
@@ -18,35 +106,32 @@
 
 			background-color: rgb(18 24 38);
 			color: white;
-			min-height: 55px;
-			padding:  0 12px 0;
-			font-family: 'Proxima Nova Bold';
+			min-height: 56px;
+			padding: 0 12px 0;
 
 			.logo_ttl {
-				font-family: 'Proxima Nova bld';
-				font-size: 18px;
-				margin-right: 5px;
+				font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+					Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
+					Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+				color: rgb(255 255 255);
+				margin-right: 4px;
+				font-weight: 900;
 			}
 		}
 
 		.disabled {
 			display: flex;
 			align-items: center;
-			letter-spacing: 0.5px;
 			color: rgb(156 163 175);
 			padding: 0 12px;
 			min-height: 40px;
 			font-size: 12px;
-			font-family: 'Proxima Nova Bold';
-			font-weight: 700;
 		}
 
 		.list {
 			display: flex;
 			align-items: center;
-			letter-spacing: 0.5px;
 			min-height: 40px;
-			padding: 0 12px;
 			font-size: 16px;
 		}
 		.router-link {
@@ -54,13 +139,21 @@
 			align-items: center;
 			text-decoration: none;
 			color: white;
+			width: 100%;
+			padding: 0 12px;
+			height: 100%;
+			
 		}
 		.text {
-			font-family: 'Proxima Nova Bold';
-			font-weight: 700;
-			font-size: 16px;
 			margin-left: 12px;
 			color: rgb(209 213 219);
 		}
+		.list:hover {
+			
+			background-color: rgb(55 65 81);
+		}
 	}
+}
+.active {
+	background-color: rgb(55 65 81);
 }

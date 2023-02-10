@@ -90,6 +90,8 @@ import { ROUTE_NAMES } from '../../../constants/route-names-constants';
 import { getEmployeeData, IEmployee, IReport } from '../../../api/interfaces';
 import TheBbuton from '../the-bbuton';
 import TheIcon from '../the-icon';
+import { RouterLink } from 'vue-router';
+import { prepareQueryInfoCommitPayload } from '../../../services/store-helper-service';
 
 export default defineComponent({
     name: 'TheEmployee',
@@ -172,13 +174,13 @@ export default defineComponent({
 
             try {
                 const response = await getEmployeeData(this.employeeId);
+
+                //@ts-ignore
                 const [{ employees, reportsToTable }] = response.data;
                 this.employee = employees
                 this.reportsToTable = reportsToTable
 
-                const query = response.queryInfo
-                this.$store.commit('addQueryInfo', query)
-
+                this.$store.commit('addSingleQueryInfo', prepareQueryInfoCommitPayload(response.data.length, response.queryInfo, response.queryInfo.workerId))
             } catch (error) {
                 console.log(error);
             }

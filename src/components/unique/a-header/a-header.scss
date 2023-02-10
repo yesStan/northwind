@@ -1,3 +1,40 @@
+@media screen and (max-width: 600px) {
+	// .app-inner-wrap .view {
+	// 	display: none;
+	// }
+	#view-route {
+		margin-left: 0.1px;
+		margin-top: 55px;
+		width: 100%;
+	}
+	#media {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 55px;
+		background: white;
+		margin-left: 0;
+		z-index: 10;
+
+		.header-wrapper {
+			display: flex;
+			justify-content: flex-end;
+			.time {
+				display: none;
+			}
+			.dropdown-wrapper {
+				display: none;
+			}
+		}
+		.more-vert {
+			display: block;
+			justify-content: flex-end;
+		}
+	}
+	
+}
+
 .a-header {
 	position: fixed;
 	top: 0;
@@ -6,16 +43,38 @@
 	height: 55px;
 	background: white;
 	margin-left: 15rem;
-	font-family: 'Proxima Nova Bold';
-	font-weight: 500;
 
 	.dropdown-wrapper{
 		position: relative;
+		
+		.sql-lite__linqs {
+			margin-left: 8px;
+		}
+		.text-white {
+			display: flex;
+			align-items: center;
+		}
+		.more-vert {
+			display: none;
+		}
 
 		.dropdown-menu {
 			position: absolute;
-			top: 25px;
-			left: 0;
+			top: 42px;
+			left: -27px;
+			width: 194px;
+			min-width: 100%;
+			background: white;
+			box-shadow: -1.8px 2px 5px #ddd;
+
+			.header-links {
+				padding: 0.5rem 0.75rem;
+				color: black;
+				font-size: 14px;
+				// margin: 8px 12px;
+				display: flex;
+				align-items: center;
+			}
 		}
 	}
 
@@ -25,12 +84,15 @@
 		justify-content: space-between;
 		height: 100%;
 		margin: 0 24px 0 24px;
+		
 
 		.time {
 			padding: 0 12px;
+			text-align: center;
+			
 		}
 		.links {
-			padding: 0 12px;
+			font-weight: 500;
 		}
 	}
 }

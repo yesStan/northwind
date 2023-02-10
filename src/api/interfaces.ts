@@ -1,6 +1,23 @@
 import { api } from "../services/api";
 
 
+// pagination page
+export interface paginationPage{
+    params : {
+        page: number
+    }
+}
+//
+
+//workerID
+
+export interface workerId {
+    workerId : string
+}
+
+//
+
+
 // ****************************************************************************************************
 // endpoint: getSuppliersData
 // ****************************************************************************************************
@@ -17,6 +34,7 @@ export interface ISupplier {
     phone: string
     fax: string
     HomePage: string
+    count: number
 }
 export interface IQuery {
     queryInfo: string
@@ -30,12 +48,13 @@ export type TSuppliersList = Array<ISupplier>
 export type TGetSuppliersListResponse = Promise<IGetSuppliersResponse>
 
 export interface IGetSuppliersResponse {
+count: number;
     queryInfo: TQueryResponse
     data: TSuppliersList
 }
 
-function getSuppliersData(): TGetSuppliersListResponse {
-    return api.get('/suppliers');
+function getSuppliersData(params: paginationPage): TGetSuppliersListResponse {
+    return api.get('/suppliers', params);
 }
 
 
@@ -72,7 +91,7 @@ export interface IGetSuppliersIdResponse {
     data: TSuppliersIdList
 }
 
-function getSuppliersIdData(id: number): TGetSuppliersIdListResponse {
+function getSuppliersIdData(id: number | string): TGetSuppliersIdListResponse {
     return api.get(`/suppliers/${id} `);
 }
 
@@ -105,12 +124,13 @@ export type TProductsList = Array<IProducts>
 export type TGetProductsListResponse = Promise<IGetProductsResponse>
 
 export interface IGetProductsResponse {
+    count: number;
     queryInfo: TQueryProducts
     data: TProductsList
 }
 
-function getProductsData(): Promise<IGetProductsResponse> {
-    return api.get('/products');
+function getProductsData(params: paginationPage): Promise<IGetProductsResponse> {
+    return api.get('/products', params);
 }
 
 
@@ -188,10 +208,13 @@ export type TGetOrdersListResponse = Promise<IGetOrderResponse>
 
 export interface IGetOrderResponse {
     data: TOrderList
+    count: number
+    workerId: string
+
 }
 
-function getOrdersData(): TGetOrdersListResponse {
-    return api.get('/orders');
+function getOrdersData(params: paginationPage): TGetOrdersListResponse {
+    return api.get('/orders', params);
 }
 
 
@@ -243,7 +266,7 @@ export type TGetOrderIdListResponse = Promise<IGetOrderIdResponse>
 
 
 
-function getOrderData(id: number): TGetOrderIdListResponse {
+function getOrderData(id: number | string): TGetOrderIdListResponse {
     return api.get(`/orders/${id} `);
 }
 
@@ -301,6 +324,7 @@ export interface ICustomerslist {
     country: string
     phone: string
     fax: string
+
 }
 
 export interface IQueryCustomers {
@@ -318,10 +342,11 @@ export type TGetCustomersListResponse = Promise<IGetCustomersResponse>
 export interface IGetCustomersResponse {
     data: TCustomersList
     queryInfo: TQueryCustomers
+    count: number
 }
 
-function getCustomersData(): TGetCustomersListResponse {
-    return api.get('/customers');
+function getCustomersData(params: paginationPage): TGetCustomersListResponse {
+    return api.get('/customers', params);
 }
 
 
@@ -346,6 +371,7 @@ export interface IEmployeeslist {
     extension: string
     notes: string
     reportsTo: number
+    count: number
 }
 
 export interface IQueryEmployess {
@@ -365,8 +391,8 @@ export interface IGetEmployeesResponse {
     queryInfo: TQueryEmp
 }
 
-function getEmployeesData(): TGetEmployessListResponse {
-    return api.get(`/employees`);
+function getEmployeesData(params: paginationPage): TGetEmployessListResponse {
+    return api.get(`/employees`, params);
 }
 
 
@@ -444,7 +470,7 @@ export interface ISearchParams {
     table: TSearchTable
     search: string
 }
-export interface ISearchResponse{
+export interface ISearchResponse {
     data: Array<any>
     queryInfo: IQuery
 }
@@ -471,6 +497,6 @@ export {
 
     getCustomersData,
     getCustomerData,
-    
+
     search
 }

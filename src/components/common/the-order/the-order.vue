@@ -17,7 +17,8 @@
                         <div class="product-info">
                             <div class="title">
                                 <h2 class="bold">Customer Id</h2>
-                                <router-link
+
+                                <router-link v-if="orders.CustomerID"
                                     :to="{ name: ROUTE_NAMES.CUSTOMER_PROFILE, params: { id: orders.CustomerID } }"
                                 >
                                     {{ orders.CustomerID }}
@@ -104,8 +105,6 @@
                         <td>
                             <router-link
                                 :to="{ name: ROUTE_NAMES.PRODUCT_PROFILE, params: { id: item.ProductID } }"
-                                props:
-                                true
                             >
                                 {{ item.ProductName }}
                             </router-link>
@@ -131,6 +130,8 @@ import { getOrderData, IOrder, IProductInOrder } from '../../../api/interfaces';
 import { ROUTE_NAMES } from '../../../constants/route-names-constants';
 import TheIcon from '../the-icon';
 import TheBbuton from '../the-bbuton';
+import { RouterLink } from 'vue-router';
+import { prepareQueryInfoCommitPayload } from '../../../services/store-helper-service';
 
 
 export default defineComponent({
@@ -174,7 +175,7 @@ export default defineComponent({
 
     computed: {
         orderId() {
-            return Number(this.$route.params.id)
+            return this.$route.params.id
         }
     },
     methods: {
@@ -183,11 +184,12 @@ export default defineComponent({
                 const response = await getOrderData(this.orderId);
                 const { orderInfo, productsInOrder } = response.data;
                 const [localOrderInfo] = orderInfo
+                
                 this.orders = localOrderInfo;
                 this.productsOrder = productsInOrder;
-
-                const query  = response.queryInfo                
-                this.$store.commit('addQueryInfo', query)
+                console.log('rsp:',response);
+                
+                this.$store.commit('addSingleQueryInfo', prepareQueryInfoCommitPayload(response.data.productsInOrder.length+1, response.queryInfo.orderInfo, response.queryInfo.orderInfo.workerId))
 
             } catch (error) {
                 console.log(error);
@@ -196,35 +198,6 @@ export default defineComponent({
     }
 });
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <style lang="scss" src="./the-order.scss" />

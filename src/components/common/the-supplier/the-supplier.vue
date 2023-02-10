@@ -15,7 +15,7 @@
                 <tbody>
                     <td
                         class="supplier-block"
-                        v-for="supplier in     suppliers"
+                        v-for="supplier in suppliers"
                     >
                         <div class="supplier-info">
                             <div class="title">
@@ -72,6 +72,7 @@ import { defineComponent } from 'vue';
 import { getSuppliersIdData, TSuppliersIdList, } from '../../../api/interfaces';
 import TheIcon from '../the-icon';
 import TheBbuton from '../the-bbuton';
+import { prepareQueryInfoCommitPayload } from '../../../services/store-helper-service';
 
 export default defineComponent({
     name: 'TheSupplier',
@@ -82,10 +83,6 @@ export default defineComponent({
         atAttribute: {
             type: String,
             default: ''
-        },
-        supplierInfo: {
-            type: Array,
-            default: ''
         }
     },
     data() {
@@ -95,7 +92,7 @@ export default defineComponent({
     },
     computed: {
         supplierId() {
-            return Number(this.$route.params.id)
+            return this.$route.params.id
         }
     },
     mounted() {
@@ -105,11 +102,10 @@ export default defineComponent({
         async getSuppliers() {
             try {
                 const response = await getSuppliersIdData(this.supplierId);
+                console.log(response)
                 this.suppliers = response.data
 
-                const query = response.queryInfo
-                this.$store.commit('addQueryInfo', query)
-
+                this.$store.commit('addSingleQueryInfo', prepareQueryInfoCommitPayload(response.data.length, response.queryInfo, response.queryInfo.workerId))
             } catch (error) {
                 console.log(error);
             }

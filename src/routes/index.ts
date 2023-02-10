@@ -21,6 +21,7 @@ const router = createRouter({
     routes: [
         {
             path: '/',
+            redirect: '/home',
             children: [
                 {
                     path: '/home',
@@ -101,7 +102,9 @@ const router = createRouter({
                 }
             ]
         }
-    ]
+    ],
+  linkActiveClass: "active", // active class for non-exact links.
+  linkExactActiveClass: "active" // active class for *exact* links.
 })
 
 export default router;

@@ -4,43 +4,72 @@
         class="the-search"
     >
         <div class="search-card">
-            <div class="search-card-wrapper">
-                <p class="text">Search Database</p>
-                <div class="search-wrapper">
-                    <div class="input-search"></div>
-                    <!-- <TheIcon icon="search" /> -->
-                    <input
-                        class="input"
-                        type="text"
-                        v-model="search"
-                        placeholder=" Enter keyword..."
-                        @keyup.enter="filter"
-                    />
+            <div class="search-card__wrapper">
+                <p class="search-title font-medium">Search Database</p>
 
-                    
-                </div>
-
+                <!-- <TheIcon icon="search" /> -->
+                <input
+                    class="card-input"
+                    type="text"
+                    v-model="search"
+                    placeholder="Enter keyword..."
+                    @keyup.enter="filter"
+                />
             </div>
-            <div class="tables-radio">
-                <p class="text">Tables</p>
-                <input
-                    type="radio"
-                    id="product"
-                    value="products"
-                    v-model="picked"
-                />
-                <label for="one">Product</label>
-                <input
-                    type="radio"
-                    id="customer"
-                    value="customers"
-                    v-model="picked"
-                />
-                <label for="two">Customer</label>
+
+            <div class="radio">
+                <p class="font-medium">Tables</p>
+                <div class="radio-wrapper">
+                    <label class="custom__radio">Products
+                        <input
+                            id="product"
+                            type="radio"
+                            name="radio"
+                            value="products"
+                            v-model="picked"
+                        >
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="custom__radio">Customers
+                        <input
+                            id="customer"
+                            type="radio"
+                            name="radio"
+                            value="customers"
+                            v-model="picked"
+                        >
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                
+                <!-- <label class="radio-label" for="custom_radio">Product
+                    <input
+                        type="radio"
+                        id="product"
+                        checked
+                        name="radio"                    
+                        value="products"
+                        v-model="picked"
+                    />
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="radio-label" for="custom_radio">Customer
+                    <input
+                        type="radio"
+                        id="customer"
+                        name="radio"                            
+                        value="customers"
+                        v-model="picked"
+                    />
+                    <span class="checkmark"></span>
+                </label> -->
             </div>
 
             <div class="search">
-                <p class="text">Search results</p>
+                <p class="font-bold">Search results</p>
+                <p v-if="result">no results</p>
+
                 <div
                     class="product"
                     v-if="picked === 'products'"
@@ -105,6 +134,7 @@ export default defineComponent({
     },
     data() {
         return {
+            result: true,
             search: '',
             picked: 'products' as TSearchTable,
             products: [] as any,
@@ -129,9 +159,8 @@ export default defineComponent({
                     table: this.picked,
                     search: this.search
                 })
+                this.result = false
                 this.filtered = data
-                console.log(this.filtered);
-
             } catch (error) {
                 console.log(error);
             }
@@ -144,6 +173,16 @@ export default defineComponent({
     }
 });
 </script>
+
+
+
+
+
+
+
+
+
+
 
 
 

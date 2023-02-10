@@ -1,23 +1,62 @@
 .the-dashboard {
 	padding: 48px;
 
+	.metrics-wrapper {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		line-height: 1.25rem;
+
+		.worker {
+			width: 50%;
+		}
+		.sql {
+			width: 50%;
+		}
+		.metric-text {
+			font-size: 14px;
+		}
+	}
+
 	.text-rendering__title {
 		font-size: 20px;
 		font-weight: 400;
-        margin: 10px 0;
+		margin: 1.5rem 0 0 0;
+		line-height: 1.25rem;
 	}
-	.text-rendering {
-		font-size: 12px;
-		font-weight: 500;
-        color: black;
-	}
-	.query-logs {
-		font-size: 12px;
-        color: rgb(156 163 175);
-	}
+
+	
+
 	.metrics-title {
 		font-size: 12px;
-        margin-bottom: 20px;
-        
+		margin-bottom: 20px;
+		margin-top: 5px;
+	}
+}
+
+.metrics-titles {
+	font-size: 20px;
+	font-weight: 500;
+}
+
+.query-items {
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+		Liberation Mono, Courier New, monospace;
+}
+
+
+.query-items {
+	.query-logs {
+		font-size: 12px;
+		color: rgb(156 163 175);
+
+		.text-rendering {
+			font-size: 12px;
+			font-weight: 500;
+		}
+		.text-render {
+			font-size: 16px;
+			color: black;
+		}
 	}
 }

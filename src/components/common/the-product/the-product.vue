@@ -64,9 +64,11 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { ROUTE_NAMES } from '../../../constants/route-names-constants';
-import { getProductData, IProduct } from '../../../api/interfaces';
+import { getProductData, IProduct, TQueryProductIdResponse } from '../../../api/interfaces';
 import TheBbuton from '../the-bbuton';
 import TheIcon from '../the-icon';
+import { RouterLink } from 'vue-router';
+import { prepareQueryInfoCommitPayload } from '../../../services/store-helper-service';
 
 export default defineComponent({
     name: 'TheProduct',
@@ -116,9 +118,7 @@ export default defineComponent({
                 this.supplier = suppliers;
                 this.product = products;
 
-                const query  = response.queryInfo
-                this.$store.commit('addQueryInfo', query)
-
+                this.$store.commit('addSingleQueryInfo', prepareQueryInfoCommitPayload(response.data.length, response.queryInfo, response.queryInfo.workerId))
             } catch (error) {
                 console.log(error);
             }

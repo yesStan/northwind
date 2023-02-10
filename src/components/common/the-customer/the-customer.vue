@@ -13,9 +13,6 @@
                     <td class="product-block">
                         <div class="product-info">
                             <div class="title">
-                                <h2 class="bold">Customer information</h2>
-                            </div>
-                            <div class="title">
                                 <h2 class="bold">Company Name</h2>
                                 <p>{{ customer.companyName }}</p>
                             </div>
@@ -72,6 +69,7 @@
 import { defineComponent } from 'vue';
 import { getCustomerData, ICustomer } from '../../../api/interfaces';
 import { ROUTE_NAMES } from '../../../constants/route-names-constants';
+import { prepareQueryInfoCommitPayload } from '../../../services/store-helper-service';
 import TheBbuton from '../the-bbuton';
 import TheIcon from '../the-icon';
 
@@ -105,19 +103,19 @@ export default defineComponent({
     },
     computed: {
         customerId() {
-            return this.$route.params.id.toString()
+            return this.$route.params.id || '';
         }
     },
     methods: {
         async getCustomer() {
             try {
                 const response = await getCustomerData(this.customerId);
+                console.log(response);
+                
                 const [customers] = response.data;
                 this.customer = customers
 
-                const query = response.queryInfo
-                this.$store.commit('addQueryInfo', query)
-
+                this.$store.commit('addSingleQueryInfo', prepareQueryInfoCommitPayload(response.data.length, response.queryInfo, response.queryInfo.workerId))
             } catch (error) {
                 console.log(error);
             }

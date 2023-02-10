@@ -8,7 +8,7 @@
                 <ASidebar />
 
             </div>
-            <router-view class="view" />
+            <router-view class="view" id="view-route" />
         </div>
     </body>
 </template>
@@ -18,7 +18,6 @@
 import { defineComponent } from 'vue';
 import ASidebar from './../src/components/unique/a-sidebar'
 import AHeader from './../src/components/unique/a-header'
-import { create } from 'domain';
 
 export default defineComponent({
     name: 'App',

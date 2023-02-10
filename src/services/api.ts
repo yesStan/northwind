@@ -35,7 +35,7 @@ class Api {
     }
 
     public get<T>(url: string, data?: any): Promise<T> {
-        return this.instance.get(url, { params: data });
+        return this.instance.get(url, { ...data });
     }
 
     public post(url: string, data?: any, config?: object): any {
