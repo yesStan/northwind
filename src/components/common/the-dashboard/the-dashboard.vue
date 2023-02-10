@@ -81,7 +81,7 @@ export default defineComponent({
     methods: {
         async getGeo() {
             try {
-                const response = await axios.get("http://ipinfo.io");
+                const response = await axios.get("https://ipinfo.io");
                 this.location = response.data.country
                 console.log(response);
             } catch (error) {
