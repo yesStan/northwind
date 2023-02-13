@@ -47,7 +47,7 @@ export const store = createStore({
                 selectLeftJoin: 0,
             }
 
-            queryInfo.logs = payload.queryInfo.map((item) => {
+            queryInfo.logs = payload.queryInfo.map((item: any) => {
                 queryInfo.select += countSelect(item.queryString);
                 queryInfo.selectWhere += countSelectWhere(item.queryString);
                 queryInfo.selectLeftJoin += countSelectLeftJoin(item.queryString);

@@ -38,8 +38,6 @@
     text-align: center;
 	margin-left: 0.25rem;
     margin-right: 0.25rem;
-
-	
 }
 .pagination-button:hover {
 	border-color: rgb(107 114 128);
@@ -53,6 +51,13 @@
 
 .vue3-easy-data-table[data-v-30ede217] {
 	line-height: 24px;
+}
+
+.vue3-easy-data-table__body tr[data-v-30ede217] {
+	height: 10px !important;
+    color: var(--easy-table-body-row-font-color);
+
+    font-size: var(--easy-table-body-row-font-size);
 }
 
 .vue3-easy-data-table__footer[data-v-30ede217] {

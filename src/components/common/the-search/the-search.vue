@@ -68,7 +68,7 @@
 
             <div class="search">
                 <p class="font-bold">Search results</p>
-                <p v-if="result">no results</p>
+                <p v-if="result">No results</p>
 
                 <div
                     class="product"

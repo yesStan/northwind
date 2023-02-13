@@ -6,7 +6,6 @@
         <div class="metrics-wrapper">
             <div class="worker">
                 <p class=" metrics-titles">Worker</p>
-                <!-- //from backend -->
                 <p class="metric-text">Colo: {{ colo }}</p>
                 <div class="location">
                     <p class="metric-text">Country: {{ location }}</p>
@@ -36,13 +35,6 @@
                     <div class="text-render">{{ log.queryString }}</div> <br>
                 </template>
             </div>
-            <!-- <div class="query-logs">
-                <span class="text-rendering"></span>  {{ items.queryInfo[0].queryTS }} {{ items.workerId }} {{ items.queryInfo[0].queryExecutionTime }} <br> 
-                <span class="text-render">SELECT {{ items.queryInfo[0].queryString }} </span> <br><br>
-
-                <span class="text-rendering"></span>  {{ items.queryInfo[0].queryTS }} {{ items.workerId }} {{ items.queryInfo[1].queryExecutionTime }}  <br>
-                <span class="text-render">SELECT {{ items.queryInfo[1].queryString }} </span> <br><br>
-            </div> <br> -->
         </div>
     </div>
 </template>
@@ -68,12 +60,9 @@ export default defineComponent({
             colo: ''
         }
     },
-
     async created() {
         await this.getGeo()
         await this.airport()
-
-        // const location = navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => { this.location = position }, err => { console.log(err) });
     },
     computed: {
         ...mapGetters(['allQueryInfo', 'count', 'selectLeftJoin', 'selectWhere', 'select']),
@@ -112,9 +101,9 @@ export default defineComponent({
                 }
             }, []);
 
-            console.log('short', shortCode);
-            console.log('location', this.location);
-            console.log('founded', shortCode[this.location]);
+            // console.log('short', shortCode);
+            // console.log('location', this.location);
+            // console.log('founded', shortCode[this.location]);
 
             if (shortCode[this.location]) {
                 const shortKey = shortCode[this.location][0].key
@@ -122,44 +111,11 @@ export default defineComponent({
             } else {
                 console.log('err', "location didnt found");
             }
+
             // console.log('find', shortCode[this.location].find(item => item.key === this.location));
         }
-
-        // reverseGeocode(coordinates) {
-        //     const that = this;
-        //     axios
-        //         .get(`https://maps.google.com/maps/api/geocode/json?latlng=${coordinates.lat},${coordinates.lng}&key=${GOOGLE_API_KEY}`)
-        //         .then(response => {
-        //             console.log(response.data)
-        //         })
-        //         .catch(error => {
-        //             console.log(error)
-        //         })
-        //         .finally(() => this.loading = false)
-        // }
-
-        // decodeLatLong(position) {
-        //     this.$gmapApiPromiseLazy().then(() => {
-        //         // eslint-disable-next-line no-undef
-        //         const geocoder = new google.maps.Geocoder()
-
-        //         geocoder.geocode({ location: { lat: position.coords.latitude, lng: position.coords.longitude } }, (results, status) => {
-        //             if (status === 'OK') {
-        //                 this.getFromAutocomplete(results[0])
-        //             }
-        //         })
-        //     })
-        // }
-
     }
 });
 </script>
-
-
-
-
-
-
-
 
 <style lang="scss" src="./the-dashboard.scss" />
