@@ -13,7 +13,7 @@
 			margin-bottom: 8px;
 
 			.card-input {
-				padding-left: 40px;
+				padding: 0 10px 0 40px;
 				background: url('https://static.thenounproject.com/png/101791-200.png')
 					no-repeat left 10px center;
 				background-size: 20px;
@@ -23,12 +23,17 @@
 				max-width: 50%;
 				height: 40px;
 			}
+			input:focus {
+				border: 3px solid rgba(59, 130, 256, 0.5);
+				outline: 2px solid transparent;
+				outline-offset: 2px;
+				border-radius: 6px;
+			}
 			input::placeholder {
 				font-weight: 500;
 				color: rgb(156 163 175);
 			}
 		}
-		//input
 	}
 
 	.radio {
@@ -66,7 +71,8 @@
 			left: 1px;
 			height: 20px;
 			width: 20px;
-			background-color: #fdf9f9;
+			// background-color: #fdf9f9;
+			border: 1px solid #faeeee;
 			border-radius: 50%;
 		}
 		.custom__radio:hover input ~ .checkmark {
@@ -86,17 +92,13 @@
 		.custom__radio .checkmark:after {
 			top: 5px;
 			left: 5px;
-			width: 10px;
-			height: 10px;
+			width: 8px;
+			height: 8px;
 			border-radius: 50%;
 			background: white;
 		}
 	}
 }
-
-
-
-
 
 .search-title {
 	font-size: 16px;
@@ -113,12 +115,18 @@
 .font-bold {
 	font-size: 18px;
 	font-weight: 700;
-	margin-bottom: 30px;
+	margin-bottom: 10px;
 }
-// .search {
-// 	padding-left: 24px;
-// 	margin: 0.5rem 0;
-// }
+.link-style {
+	
+	font-size: 16px;
+	color: #2563Eb;
+}
+.search-details {
+	margin: 5px 0 8px 0;
+	font-size: 14px;
+	color: #9ca3af;
+}
 
 #customer {
 	margin-left: 10px;

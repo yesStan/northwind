@@ -71,25 +71,20 @@ export default defineComponent({
     },
     created() {
         this.interval = window.setInterval(() => {
-            this.time = Intl.DateTimeFormat(navigator.language, {
-                hour: "numeric",
-                minute: "numeric",
-                second: "numeric"
-            }).format();
+            const date = new Date();
+            const unformatedHours = String(date.getHours());
+            const unformatedMinutes = String(date.getMinutes());
+            const unformatedSeconds = String(date.getSeconds());
+            
+            const hours = unformatedHours.length === 1 ? `0${unformatedHours}` : unformatedHours;
+            const minutes = unformatedMinutes.length === 1 ? `0${date.getMinutes()}` : date.getMinutes();
+            const seconds = unformatedSeconds.length === 1 ? `0${date.getSeconds()}` : date.getSeconds();
+            
+            this.time = `${hours}:${minutes}:${seconds}`
         }, 1000);
     },
     components: { TheIcon }
 });
 </script>
-
-
-
-
-
-
-
-
-
-
 
 <style lang="scss" src="./a-header.scss" />

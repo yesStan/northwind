@@ -8,7 +8,10 @@
                 <thead>
                     <tr>
                         <th>
-                            <TheIcon icon="ballot" />Order information
+                            <TheIcon
+                                class="single-color"
+                                icon="ballot"
+                            />Order information
                         </th>
                     </tr>
                 </thead>
@@ -18,7 +21,8 @@
                             <div class="title">
                                 <h2 class="bold">Customer Id</h2>
 
-                                <router-link v-if="orders.CustomerID"
+                                <router-link
+                                    v-if="orders.CustomerID"
                                     :to="{ name: ROUTE_NAMES.CUSTOMER_PROFILE, params: { id: orders.CustomerID } }"
                                 >
                                     {{ orders.CustomerID }}
@@ -39,11 +43,11 @@
                             </div>
                             <div class="title">
                                 <h2 class="bold">Total Price</h2>
-                                <p>{{ orders.total_products_price }}</p>
+                                <p>${{ parseInt(orders.total_products_price).toFixed(2) }}</p>
                             </div>
                             <div class="title">
                                 <h2 class="bold">Total Discount</h2>
-                                <p>{{ orders.total_products_discount }}</p>
+                                <p>${{ parseInt(orders.total_products_discount).toFixed(2) }}</p>
                             </div>
                             <div class="title">
                                 <h2 class="bold">Ship Via</h2>
@@ -51,21 +55,21 @@
                             </div>
                             <div class="title">
                                 <h2 class="bold">Freight</h2>
-                                <p>{{ orders.Freight }}</p>
+                                <p>${{ orders.Freight }}</p>
                             </div>
                         </div>
                         <div class="product-info">
                             <div class="title">
                                 <h2 class="bold">Order Date</h2>
-                                <p>{{ orders.OrderDate }}</p>
+                                <p>{{ orders.OrderDate.split(" ")[0] }}</p>
                             </div>
                             <div class="title">
                                 <h2 class="bold">Required Date</h2>
-                                <p>{{ orders.RequiredDate }}</p>
+                                <p>{{ orders.RequiredDate.split(" ")[0] }}</p>
                             </div>
                             <div class="title">
                                 <h2 class="bold">Shipped Date</h2>
-                                <p>{{ orders.ShippedDate }}</p>
+                                <p>{{ orders.ShippedDate.split(" ")[0] }}</p>
                             </div>
                             <div class="title">
                                 <h2 class="bold">Ship City</h2>
@@ -94,25 +98,26 @@
                     </tr>
                 </thead>
                 <tbody class="order-inf">
-                    <tr>
+                    <tr style="font-weight: 700;">
                         <td>Product</td>
                         <td>Quantity</td>
                         <td>Order Price</td>
                         <td>Total Price</td>
                         <td>Discount</td>
                     </tr>
-                    <tr v-for="item in productsOrder">
+                    <tr
+                        class="tst"
+                        v-for="item in productsOrder"
+                    >
                         <td>
-                            <router-link
-                                :to="{ name: ROUTE_NAMES.PRODUCT_PROFILE, params: { id: item.ProductID } }"
-                            >
+                            <router-link :to="{ name: ROUTE_NAMES.PRODUCT_PROFILE, params: { id: item.ProductID } }">
                                 {{ item.ProductName }}
                             </router-link>
                         </td>
                         <td>{{ item.Quantity }}</td>
-                        <td>{{ item.UnitPrice }}</td>
-                        <td>{{ item.total_products_price }}</td>
-                        <td>{{ item.Discount }}</td>
+                        <td>${{ parseInt(item.UnitPrice).toFixed(2) }}</td>
+                        <td>${{ parseInt(item.total_products_price).toFixed(2) }}</td>
+                        <td>{{ item.Discount }}%</td>
                     </tr>
                 </tbody>
                 <tr>
@@ -172,7 +177,6 @@ export default defineComponent({
     created() {
         this.getOrder();
     },
-
     computed: {
         orderId() {
             return this.$route.params.id
@@ -184,13 +188,11 @@ export default defineComponent({
                 const response = await getOrderData(this.orderId);
                 const { orderInfo, productsInOrder } = response.data;
                 const [localOrderInfo] = orderInfo
-                
+
                 this.orders = localOrderInfo;
                 this.productsOrder = productsInOrder;
-                console.log('rsp:',response);
-                
-                this.$store.commit('addSingleQueryInfo', prepareQueryInfoCommitPayload(response.data.productsInOrder.length+1, response.queryInfo.orderInfo, response.queryInfo.orderInfo.workerId))
 
+                this.$store.commit('addSingleQueryInfo', prepareQueryInfoCommitPayload(response.data.productsInOrder.length + 1, response.queryInfo.orderInfo, response.queryInfo.orderInfo.workerId))
             } catch (error) {
                 console.log(error);
             }
@@ -198,6 +200,5 @@ export default defineComponent({
     }
 });
 </script>
-
 
 <style lang="scss" src="./the-order.scss" />

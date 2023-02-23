@@ -1,6 +1,6 @@
 .the-employees {
     padding: 24px;
-    
+  
     table.customTable {
 		width: 100%;
 		background-color: #ffffff;
@@ -13,4 +13,8 @@
 		border: none;
 		padding: 5px;
 	}
+}
+
+.extra-margin {
+	margin: 0 -10px 0 0;
 }

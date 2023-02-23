@@ -12,13 +12,13 @@
 	.pages-quantity {
 		display: flex;
 		overflow: scroll;
-    	max-width: 515px;
+		max-width: 515px;
 		margin-right: 15px;
 	}
 	.current-of-total {
 		display: flex;
 		justify-content: flex-end;
-		min-width: 50px;	
+		min-width: 50px;
 	}
 	// .pages {
 	// 	display: flex;
@@ -30,14 +30,14 @@
 	font-size: 16px;
 	border: 1px solid #e5e7eb;
 	border-radius: 0.25rem;
-    border-width: 0.7px;
-    cursor: pointer;
-    display: inline-flex;
-    justify-content: center;
-    padding: 0.7rem 1rem;
-    text-align: center;
+	border-width: 0.7px;
+	cursor: pointer;
+	display: inline-flex;
+	justify-content: center;
+	padding: 0.7rem 1rem;
+	text-align: center;
 	margin-left: 0.25rem;
-    margin-right: 0.25rem;
+	margin-right: 0.25rem;
 }
 .pagination-button:hover {
 	border-color: rgb(107 114 128);
@@ -49,18 +49,28 @@
 	display: none;
 }
 
-.vue3-easy-data-table[data-v-30ede217] {
+.vue3-easy-data-table[data-v-0c3a2656] {
 	line-height: 24px;
 }
 
-.vue3-easy-data-table__body tr[data-v-30ede217] {
-	height: 10px !important;
-    color: var(--easy-table-body-row-font-color);
-
-    font-size: var(--easy-table-body-row-font-size);
+.vue3-easy-data-table__main {
+	padding: 0 24px 0 0;
 }
 
-.vue3-easy-data-table__footer[data-v-30ede217] {
+.vue3-easy-data-table__body tr[data-v-0c3a2656]:nth-child(odd) td {
+	background: rgb(249, 250, 251);
+}
+
+.vue3-easy-data-table__body tr[data-v-0c3a2656] {
+	height: 10px !important;
+	color: var(--easy-table-body-row-font-color);
+	font-size: var(--easy-table-body-row-font-size);
+}
+// .tst:nth-child(even) {
+// 	background: rgb(249, 250, 251);
+// }
+
+.vue3-easy-data-table__footer[data-v-0c3a2656] {
 	background-color: var(--easy-table-footer-background-color);
 	color: var(--easy-table-footer-font-color);
 	border-top: var(--easy-table-row-border);
@@ -110,7 +120,6 @@
 		border-bottom: none;
 		border-right: none;
 		text-align: center;
-		
 	}
 	.buttons-pagination .item.button.active[data-v-4c681fa2] {
 		background-color: white !important;
@@ -149,16 +158,21 @@ body {
 	--easy-table-body-item-padding: 0.5rem 0.75rem;
 	vertical-align: middle;
 }
+.vue3-easy-data-table__body {
+	font-weight: 450;
+}
 
 .vue3-easy-data-table__body td {
 	vertical-align: middle;
 }
 .vue3-easy-data-table__header th {
+	color: black;
 	vertical-align: middle;
 	font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
 		Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
 		Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-	font-weight: bold;
+	font-weight: 800;
+	margin-left: 5px;
 }
 
 .suppliers {
@@ -176,7 +190,7 @@ body {
 	.view {
 		text-decoration: none;
 		margin-left: 15rem;
-		margin-top: 37px;
+		margin-top: 40px;
 	}
 }
 
@@ -190,6 +204,10 @@ body {
 	border-color: rgb(243 244 246);
 	border-bottom: none;
 	font-weight: 700;
+}
+.single-color {
+	color: black;
+	padding-right: 8px;
 }
 
 .links-color {

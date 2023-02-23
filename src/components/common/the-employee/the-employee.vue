@@ -8,7 +8,10 @@
                 <thead>
                     <tr>
                         <th>
-                            <TheIcon icon="ballot" />Employee information
+                            <TheIcon
+                                class="single-color"
+                                icon="ballot"
+                            />Employee information
                         </th>
                     </tr>
                 </thead>
@@ -17,7 +20,7 @@
                         <div class="product-info">
                             <div class="title">
                                 <h2 class="bold">Name</h2>
-                                <p>{{ employee.firstName }}</p>
+                                <p>{{ employee.firstName + ' ' + employee.lastName }}</p>
                             </div>
                             <div class="title">
                                 <h2 class="bold">Title</h2>
@@ -65,12 +68,15 @@
                                 <h2 class="bold">Notes</h2>
                                 <p>{{ employee.notes }}</p>
                             </div>
-                            <div class="title" v-if="employee.reportsTo">
+                            <div
+                                class="title"
+                                v-if="employee.reportsTo"
+                            >
                                 <h2 class="bold">Reports To</h2>
                                 <router-link
                                     :to="{ name: ROUTE_NAMES.EMPLOYEE_PROFILE, params: { id: employee.reportsTo } }"
                                 >
-                                    {{ employee.reportsTo }}
+                                    {{ reportedPerson }}
                                 </router-link>
                             </div>
                         </div>
@@ -143,12 +149,13 @@ export default defineComponent({
                 notes: '',
                 reportsTo: null,
             } as IReport,
-            
+            reportedPerson: '',
+
             ROUTE_NAMES
         }
     },
     watch: {
-        '$route': function(value) {
+        '$route': function (value) {
             if (value?.params?.id) {
 
                 console.log('changer');
@@ -179,6 +186,9 @@ export default defineComponent({
                 const [{ employees, reportsToTable }] = response.data;
                 this.employee = employees
                 this.reportsToTable = reportsToTable
+                console.log(reportsToTable.firstName + ' ' + reportsToTable.lastName);
+
+                this.reportedPerson = reportsToTable.firstName + ' ' + reportsToTable.lastName;
 
                 this.$store.commit('addSingleQueryInfo', prepareQueryInfoCommitPayload(response.data.length, response.queryInfo, response.queryInfo.workerId))
             } catch (error) {
@@ -188,45 +198,5 @@ export default defineComponent({
     }
 });
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <style lang="scss" src="./the-employee.scss" />

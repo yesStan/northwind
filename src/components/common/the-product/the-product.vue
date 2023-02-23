@@ -8,7 +8,10 @@
                 <thead>
                     <tr>
                         <th>
-                            <TheIcon icon="ballot" />Product information
+                            <TheIcon
+                                class="single-color"
+                                icon="ballot"
+                            />Product information
                         </th>
                     </tr>
                 </thead>
@@ -34,7 +37,7 @@
                             </div>
                             <div class="title">
                                 <h2 class="bold">Unit Price</h2>
-                                <p>{{ product.unitPrice }}</p>
+                                <p>${{ product.unitPrice }}</p>
                             </div>
                         </div>
                         <div class="product-info-two">
@@ -43,8 +46,12 @@
                                 <p>{{ product.unitsInStock }}</p>
                             </div>
                             <div class="title">
-                                <h2 class="bold">Units On Order</h2>
+                                <h2 class="bold">Units in Order</h2>
                                 <p>{{ product.unitsOnOrder }}</p>
+                            </div>
+                            <div class="title">
+                                <h2 class="bold">Reorder Level</h2>
+                                <p>{{ product.reorderLevel }}</p>
                             </div>
                             <div class="title">
                                 <h2 class="bold">Discontinued</h2>
@@ -94,7 +101,6 @@ export default defineComponent({
                 unitsOnOrder: "",
                 reorderLevel: "",
                 discontinued: false,
-
             } as IProduct,
             supplier: {
                 companyName: ''
@@ -117,6 +123,8 @@ export default defineComponent({
                 const [{ products, suppliers }] = response.data;
                 this.supplier = suppliers;
                 this.product = products;
+                console.log(response);
+
 
                 this.$store.commit('addSingleQueryInfo', prepareQueryInfoCommitPayload(response.data.length, response.queryInfo, response.queryInfo.workerId))
             } catch (error) {
@@ -126,29 +134,5 @@ export default defineComponent({
     }
 });
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <style lang="scss" src="./the-product.scss" />

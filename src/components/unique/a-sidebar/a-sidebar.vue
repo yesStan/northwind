@@ -113,7 +113,6 @@ export default defineComponent({
     methods: {
     }
 });
-
 </script>
 
 <style lang="scss" src="./a-sidebar.scss" />

@@ -1,4 +1,50 @@
+
 <template>
+    <img
+        :src="avatar"
+        alt="Avatar"
+    />
+</template>
+
+
+<script lang="ts">
+
+import { defineComponent, onMounted, ref } from 'vue';
+import { createAvatar } from '@dicebear/core';
+import { lorelei } from '@dicebear/collection';
+
+
+export default defineComponent({
+    name: 'dice',
+    setup() {
+
+        const avatar = createAvatar(lorelei, {
+            size: 128,
+            // ... other options
+        }).toDataUriSync();
+        return {
+            avatar
+        }
+    }
+}
+) 
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <template>
     <div
         :at-the-avatar="atAttribute"
         class="the-avatar"
@@ -19,7 +65,7 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-    name: 'TheAvatar',
+    name: 'dice',
     props: {
         atAttribute: {
             type: String,
@@ -84,4 +130,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" src="./the-avatar.scss" />
+<style lang="scss" src="./the-avatar.scss" /> -->

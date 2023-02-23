@@ -4,6 +4,7 @@
 	.metrics-wrapper {
 		display: flex;
 		align-items: baseline;
+		gap: 10px;
 		justify-content: space-between;
 		line-height: 1.25rem;
 
@@ -29,14 +30,15 @@
 
 	.metrics-title {
 		font-size: 12px;
-		margin-bottom: 20px;
+		margin-bottom: 12px;
 		margin-top: 5px;
 	}
 }
 
 .metrics-titles {
 	font-size: 20px;
-	font-weight: 500;
+	padding-bottom: 4px;
+	font-weight: 400;
 }
 
 .query-items {
@@ -55,7 +57,8 @@
 			font-weight: 500;
 		}
 		.text-render {
-			font-size: 16px;
+			font-size: 14px;
+			line-height: 1.25rem;
 			color: black;
 		}
 	}

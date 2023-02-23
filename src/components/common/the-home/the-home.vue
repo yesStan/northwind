@@ -54,24 +54,4 @@ export default defineComponent({
 });
 </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <style lang="scss" src="./the-home.scss" />

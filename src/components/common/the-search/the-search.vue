@@ -78,7 +78,7 @@
                         class="search-result"
                         v-for="item in filtered"
                     >
-                        <router-link :to="{ name: ROUTE_NAMES.PRODUCT_PROFILE, params: { id: item.categoryID } }">
+                        <router-link class="link-style" :to="{ name: ROUTE_NAMES.PRODUCT_PROFILE, params: { id: item.categoryID } }">
                             {{ item.productName }}
                         </router-link>
                         <p class="search-details">#{{ item.productID }} Quantity Per Unit: {{
@@ -173,77 +173,5 @@ export default defineComponent({
     }
 });
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <style lang="scss" src="./the-search.scss" />

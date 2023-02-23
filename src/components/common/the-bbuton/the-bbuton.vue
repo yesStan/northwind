@@ -7,7 +7,7 @@
             class="button"
             type="button"
             @click="goBack"
-        >Go Back</button>
+        >Go back</button>
     </div>
 </template>
 
@@ -29,9 +29,5 @@ export default defineComponent({
     }
 });
 </script>
-
-
-
-
 
 <style lang="scss" src="./the-bbuton.scss" />

@@ -3,7 +3,6 @@
         :at-the-orders="atAttribute"
         class="the-orders"
     >
-
         <div class="title">
             <p class="main__title">Orders
                 <TheIcon
@@ -11,10 +10,10 @@
                     icon="redo"
                 />
             </p>
+
             <Vue3EasyDataTable
                 :headers="headers"
                 :items="items"
-                alternating
                 buttons-pagination
                 hide-rows-per-page
             >
@@ -25,26 +24,24 @@
                     </router-link>
                 </template>
                 <template #item-indicator.total_products_price="item">
-                    ${{ item.total_products_price }}
+                    ${{ parseInt(item.total_products_price).toFixed(2) }}
                 </template>
 
                 <template #pagination>
                     <div class="pagination_c">
-
                         <div class="pages-quantity">
                             <button
                                 class="pagination-button"
-                                v-for="page in totalPages"
+                                v-for="page in restPagesList"
                                 @click="fetchOrders(page)"
                             >
+
                                 {{ page }}
                             </button>
                         </div>
                         <div class="current-of-total">
                             Page: {{ currentPage }} of {{ totalPages }}
                         </div>
-
-
                     </div>
                 </template>
             </Vue3EasyDataTable>
@@ -53,7 +50,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 import { mapGetters } from 'vuex';
 import { getOrdersData, TOrderList } from '../../../api/interfaces'
@@ -62,6 +59,7 @@ import Vue3EasyDataTable from 'vue3-easy-data-table';
 import type { Header, Item } from "vue3-easy-data-table";
 import TheIcon from '../the-icon';
 import { prepareQueryInfoCommitPayload } from '../../../services/store-helper-service';
+
 
 
 export default defineComponent({
@@ -91,16 +89,51 @@ export default defineComponent({
             ],
             items: [] as TOrderList,
             totalPages: 0,
-            currentPage: 0
+            currentPage: 1,
         }
     },
     created() {
         this.fetchOrders(1)
     },
     computed: {
-        // ...mapGetters(['allOrders']), 
+        //     // ...mapGetters(['allOrders']), 
+        restPagesList() {
+            if (this.totalPages <= 8) {
+                return this.createIncrementedArray(this.totalPages);
+            } else {
+                const offset = 2;
+                // const dynamicQuantity = (offset * 2) + 1
+
+                if (this.currentPage < 5) {
+                    return [
+                        ...this.createIncrementedArray(6),
+                        '...',
+                        this.totalPages
+                    ]
+                } else if (this.currentPage + 5 - offset >= this.totalPages) {
+                    return [
+                        1,
+                        '...',
+                        ...this.createIncrementedArray(6, this.totalPages - 6),
+                    ]
+                } else {
+                    return [
+                        1,
+                        '...',
+                        ...this.createIncrementedArray(5, this.currentPage - 1 - offset),
+                        '...',
+                        this.totalPages
+                    ]
+                }
+            }
+        }
     },
     methods: {
+        createIncrementedArray(arrLength: number, countFrom: number = 0) {
+            return Array.from(Array(arrLength), (_, index) => {
+                return countFrom + index + 1
+            })
+        },
         async fetchOrders(page: number) {
             this.currentPage = page;
             try {
@@ -110,6 +143,7 @@ export default defineComponent({
 
                 this.totalPages = parseFloat(totalPage.toFixed())
                 this.items = response.data
+                this.items.forEach((i) => i.ShippedDate = i.ShippedDate.split(" ")[0])
 
                 this.$store.commit('addMultipleQueryInfo', prepareQueryInfoCommitPayload(response.data.length, response.queryInfo, response.workerId))
             } catch (error) {
@@ -119,7 +153,5 @@ export default defineComponent({
     }
 });
 </script>
-
-
 
 <style lang="scss" src="./the-orders.scss" />

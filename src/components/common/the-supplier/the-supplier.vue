@@ -8,7 +8,10 @@
                 <thead>
                     <tr>
                         <th>
-                            <TheIcon icon="ballot" />Supplier information
+                            <TheIcon
+                                class="single-color"
+                                icon="ballot"
+                            />Supplier information
                         </th>
                     </tr>
                 </thead>
@@ -104,7 +107,7 @@ export default defineComponent({
                 const response = await getSuppliersIdData(this.supplierId);
                 console.log(response)
                 this.suppliers = response.data
-
+                
                 this.$store.commit('addSingleQueryInfo', prepareQueryInfoCommitPayload(response.data.length, response.queryInfo, response.queryInfo.workerId))
             } catch (error) {
                 console.log(error);

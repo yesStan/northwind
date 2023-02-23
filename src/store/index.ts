@@ -16,7 +16,7 @@ export const store = createStore({
     },
     getters: {
         allQueryInfo: state => state.queryInfo,
-        count: state => state.queryInfo.reduce((acc, item) => acc + item.count, 0),
+        count: state => state.queryInfo.reduce((acc, item) => acc + item.count+ 1, 0),
         select: state => state.queryInfo.reduce((acc, item) => acc + item.select, 0),
         selectWhere: state => state.queryInfo.reduce((acc, item) => acc + item.selectWhere, 0),
         selectLeftJoin: state => state.queryInfo.reduce((acc, item) => acc + item.selectLeftJoin, 0),

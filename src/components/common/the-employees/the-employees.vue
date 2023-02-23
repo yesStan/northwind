@@ -14,7 +14,6 @@
             <Vue3EasyDataTable
                 :headers="headers"
                 :items="items"
-                alternating
                 buttons-pagination
                 hide-rows-per-page
             >
@@ -112,21 +111,5 @@ export default defineComponent({
     }
 });
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <style lang="scss" src="./the-employees.scss" />

@@ -5,7 +5,10 @@
                 <thead>
                     <tr>
                         <th>
-                            <TheIcon icon="ballot" />Customer information
+                            <TheIcon
+                                class="single-color"
+                                icon="ballot"
+                            />Customer information
                         </th>
                     </tr>
                 </thead>
@@ -32,6 +35,8 @@
                                 <h2 class="bold">City</h2>
                                 <p>{{ customer.city }}</p>
                             </div>
+                        </div>
+                        <div class="product-info">
                             <div class="title">
                                 <h2 class="bold">Postal Code</h2>
                                 <p>{{ customer.postalCode }}</p>
@@ -40,8 +45,6 @@
                                 <h2 class="bold">Region</h2>
                                 <p>{{ customer.region }}</p>
                             </div>
-                        </div>
-                        <div class="product-info">
                             <div class="title">
                                 <h2 class="bold">Country</h2>
                                 <p>{{ customer.country }}</p>
@@ -111,7 +114,7 @@ export default defineComponent({
             try {
                 const response = await getCustomerData(this.customerId);
                 console.log(response);
-                
+
                 const [customers] = response.data;
                 this.customer = customers
 

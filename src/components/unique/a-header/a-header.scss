@@ -20,6 +20,7 @@
 		.header-wrapper {
 			display: flex;
 			justify-content: flex-end;
+
 			.time {
 				display: none;
 			}
@@ -43,6 +44,7 @@
 	height: 55px;
 	background: white;
 	margin-left: 15rem;
+	z-index: 20;
 
 	.dropdown-wrapper{
 		position: relative;

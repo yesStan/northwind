@@ -18,7 +18,6 @@
                 <p class="metric-text"># SELECT: {{ select }}</p>
                 <p class="metric-text"># SELECT WHERE:{{ selectWhere }}</p>
                 <p class="metric-text"># SELECT LEFT JOIN: {{ selectLeftJoin }}</p>
-
             </div>
         </div>
 
@@ -44,7 +43,7 @@ import axios from 'axios';
 import { defineComponent } from 'vue';
 import { mapGetters } from 'vuex';
 import { airport } from '../../../services/airports';
-
+import { api } from '../../../services/api';
 
 export default defineComponent({
     name: 'TheDashboard',
@@ -69,10 +68,11 @@ export default defineComponent({
     },
     methods: {
         async getGeo() {
+            const MY_KEY = 'b37c0ea307fa4016961cb192ed866d3c';
+
             try {
-                const response = await axios.get("https://ipinfo.io");
-                this.location = response.data.country
-                console.log(response);
+                const response = await axios.get(`https://api.ipgeolocation.io/ipgeo?apiKey=${MY_KEY}`);
+                this.location = response.data.country_name
             } catch (error) {
                 console.log(error);
             }
@@ -101,18 +101,12 @@ export default defineComponent({
                 }
             }, []);
 
-            // console.log('short', shortCode);
-            // console.log('location', this.location);
-            // console.log('founded', shortCode[this.location]);
-
             if (shortCode[this.location]) {
                 const shortKey = shortCode[this.location][0].key
                 this.colo = shortKey
             } else {
                 console.log('err', "location didnt found");
             }
-
-            // console.log('find', shortCode[this.location].find(item => item.key === this.location));
         }
     }
 });

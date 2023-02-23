@@ -14,7 +14,6 @@
                 :headers="headers"
                 :items="items"
                 buttons-pagination
-                alternating
                 hide-rows-per-page
             >
                 <template #item-indicator.companyName="item">
@@ -109,9 +108,5 @@ export default defineComponent({
     }
 });
 </script>
-
-
-
-
 
 <style lang="scss" src="./the-customers.scss" />

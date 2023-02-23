@@ -1,7 +1,7 @@
 .the-bbuton {
     padding: 24px;
 	.button {
-		background-color: red;
+		background-color: rgb(239 68 68);
 		border-color: red;
         color: rgb(255 255 255);
 		border-radius: 0.25rem;
@@ -9,8 +9,9 @@
 		cursor: pointer;
 		display: inline-flex;
 		justify-content: center;
-		padding: 8px 16px;
+		padding: 12px 16px;
 		text-align: center;
 		white-space: nowrap;
+		font-weight: 600;
 	}
 }

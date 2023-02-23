@@ -3,6 +3,10 @@
         :at-the-suppliers="atAttribute"
         class="the-suppliers"
     >
+
+    <dice/>
+
+
         <div class="title">
             <p class="main__title">Suppliers
                 <TheIcon
@@ -13,9 +17,8 @@
             <Vue3EasyDataTable
                 :headers="headers"
                 :items="items"
-                alternating
-                buttons-pagination
                 hide-rows-per-page
+                buttons-pagination
             >
                 <template #item-indicator.companyName="item">
                     <router-link :to="{ name: ROUTE_NAMES.SUPPLIER_PROFILE, params: { id: item.supplierID } }">
@@ -53,14 +56,13 @@ import { defineComponent } from 'vue';
 import { api } from '../../../services/api';
 import { ROUTE_NAMES } from '../../../constants/route-names-constants';
 import { getSuppliersData, TSuppliersList } from '../../../api/interfaces'
-
 import TheAvatar from '../the-avatar';
-
 import Vue3EasyDataTable from 'vue3-easy-data-table';
 import type { Header, Item } from "vue3-easy-data-table";
 import TheIcon from '../the-icon';
 import { prepareQueryInfoCommitPayload } from '../../../services/store-helper-service';
-import { count } from 'console';
+import dice from '../the-dice';
+
 
 
 export default defineComponent({
@@ -68,7 +70,8 @@ export default defineComponent({
     components: {
         Vue3EasyDataTable,
         TheAvatar,
-        TheIcon
+        TheIcon,
+        dice
     },
     props: {
         atAttribute: {
@@ -91,7 +94,8 @@ export default defineComponent({
             ],
             items: [] as TSuppliersList,
             totalPages: 0,
-            currentPage: 0
+            currentPage: 0,
+            page: 1
         }
     },
     created() {
@@ -114,10 +118,7 @@ export default defineComponent({
         }
     }
 });
-
 </script>
-
-
 
 
 
