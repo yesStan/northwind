@@ -23,10 +23,11 @@
                     </router-link>
                 </template>
                 <template #item-indicator="item">
-                    <TheAvatar
+                    <dice :seed="item.firstName + ' ' + item.lastName"  />
+                    <!-- <TheAvatar
                         :firstName="item.firstName"
                         :lastName="item.lastName"
-                    />
+                    /> -->
                 </template>
 
                 <template #pagination>
@@ -61,11 +62,12 @@ import TheAvatar from '../the-avatar';
 import TheIcon from '../the-icon';
 import { RouterLink } from 'vue-router';
 import { prepareQueryInfoCommitPayload } from '../../../services/store-helper-service';
+import dice from '../the-dice';
 
 export default defineComponent({
     name: 'TheEmployees',
     components: {
-        Vue3EasyDataTable, TheAvatar, TheIcon
+        Vue3EasyDataTable, TheAvatar, TheIcon, dice
     },
     props: {
         atAttribute: {
@@ -99,8 +101,12 @@ export default defineComponent({
             this.currentPage = page;
             try {
                 const response = await getEmployeesData({ params: { page } });
-                const [concatNames] = response.data
-                const name = this.name = concatNames.firstName + concatNames.lastName;
+                
+                // const [concatNames] = response.data
+                // console.log('concat:', concatNames);
+                // const name = this.name = concatNames.firstName + ' ' + concatNames.lastName;
+                // console.log('name:',name);
+
                 this.items = response.data
 
                 this.$store.commit('addMultipleQueryInfo', prepareQueryInfoCommitPayload(response.data.length, response.queryInfo, response.workerId))

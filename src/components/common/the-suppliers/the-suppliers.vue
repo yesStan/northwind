@@ -4,7 +4,6 @@
         class="the-suppliers"
     >
 
-    <dice/>
 
 
         <div class="title">
@@ -26,7 +25,8 @@
                     </router-link>
                 </template>
                 <template #item-indicator="item">
-                    <TheAvatar :fullName="item.contactName" />
+                    <dice :seed="item.contactName" />
+                    <!-- <TheAvatar :fullName="item.contactName" /> -->
                 </template>
 
                 <template #pagination>
@@ -62,7 +62,6 @@ import type { Header, Item } from "vue3-easy-data-table";
 import TheIcon from '../the-icon';
 import { prepareQueryInfoCommitPayload } from '../../../services/store-helper-service';
 import dice from '../the-dice';
-
 
 
 export default defineComponent({
@@ -119,8 +118,6 @@ export default defineComponent({
     }
 });
 </script>
-
-
 
 <style lang="scss" src="./the-suppliers.scss" />
 

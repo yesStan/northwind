@@ -22,7 +22,8 @@
                     </router-link>
                 </template>
                 <template #item-indicator="item">
-                    <TheAvatar :fullName="item.contactName" />
+                    <dice :seed="item.contactName"  />
+                    <!-- <TheAvatar :fullName="item.contactName" /> -->
                 </template>
 
                 <template #pagination>
@@ -58,11 +59,12 @@ import TheAvatar from '../the-avatar';
 import TheIcon from '../the-icon';
 import { RouterLink } from 'vue-router';
 import { prepareQueryInfoCommitPayload } from '../../../services/store-helper-service';
+import dice from '../the-dice';
 
 export default defineComponent({
     name: 'TheCustomers',
     components: {
-        Vue3EasyDataTable, TheAvatar, TheIcon
+        Vue3EasyDataTable, TheAvatar, TheIcon, dice
     },
     props: {
         atAttribute: {

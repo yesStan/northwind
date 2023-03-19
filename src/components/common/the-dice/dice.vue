@@ -11,17 +11,28 @@
 
 import { defineComponent, onMounted, ref } from 'vue';
 import { createAvatar } from '@dicebear/core';
-import { lorelei } from '@dicebear/collection';
+import { initials } from '@dicebear/collection';
 
 
 export default defineComponent({
     name: 'dice',
-    setup() {
+    props: {
+        seed: {
+            type: String,
+            default: ''
+        }
+    },
+    setup(props) {
 
-        const avatar = createAvatar(lorelei, {
-            size: 128,
-            // ... other options
+        const avatar = createAvatar(initials, {
+            seed: props.seed,
+            scale: 50,
+            radius: 50,
+            size: 25,
+            fontSize: 100
+
         }).toDataUriSync();
+
         return {
             avatar
         }
